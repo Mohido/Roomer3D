@@ -1,0 +1,58 @@
+{
+    "items" : {
+        "furniture" : {
+            "tables" : [
+                {   
+                    "id" : "table.001",
+                    "description" : "wood, heavy",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                },
+                {
+                    "id" : "table.002",
+                    "description" : "metal, glass",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                }
+            ], 
+            "chairs" : [
+                {
+                    "id" : "chair.001",
+                    "description" : "light, chill",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                },
+                {
+                    "id" : "chair.002",
+                    "description" : "gaming, cool",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                }
+            ],
+            "beds" : [
+                {
+                    "id" : "bed.001",
+                    "description" : "double",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                },
+                {
+                    "id" : "bed.002",
+                    "description" : "single",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                }
+            ]
+        },
+        "decoration" : {
+            "plants" : [
+                {
+                    "id" : "plant.001",
+                    "description" : "artificial",
+                    "thumbnail" : "#",
+                    "fileurl" : "#"
+                }
+            ]
+        }
+    }
+}
