@@ -19,16 +19,19 @@ export const Card = (props : CardProp) => {
     <div>
       {
         props.data.map((item) => {
-          return (<div onClick={() => props.onSelect(item.id)} key={item.id}>
-            {/* Item Data */}
-            <div>
-              <h4>{item.id}</h4>
-              <p>{item.description}</p>
-            </div>
+          if(!(item.id.includes(props.filter) || item.description.includes(props.filter)))
+            return <div key={item.id}></div>
+          else
+            return <div onClick={() => props.onSelect(item.id)} key={item.id}>
+              {/* Item Data */}
+              <div>
+                <h4>{item.id}</h4>
+                <p>{item.description}</p>
+              </div>
 
-            {/* Right Image */}
-            <div></div>
-          </div>)
+              {/* Right Image */}
+              <div></div>
+            </div>
         })
       }
     </div>
