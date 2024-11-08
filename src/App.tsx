@@ -15,7 +15,7 @@ function App() {
       <Area3D fileurl={fileurl} />
 
       {/* Items Area */}
-      <AreaItems onSelect={(item) => {console.log(item); setFileurl(item)}}/>
+      <AreaItems onSelect={(fileurl) => {setFileurl(fileurl); setTimeout(()=> setFileurl(''), 1000)}}/>
     </>
   )
 }
