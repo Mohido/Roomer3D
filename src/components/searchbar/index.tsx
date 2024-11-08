@@ -1,9 +1,13 @@
 import "./index.css";
+import { FaSearch } from 'react-icons/fa';
 
 export const Searchbar = (props: {onSearch: (value : string) => void}) => {
   return (
     <div className="searcharea">
-      <input className="searchbar" type="text" onChange={(e) => props.onSearch(e.target.value)} />
+      <FaSearch style={{marginTop: "4px", marginRight: "15px", color:"rgb(190, 190, 190)"}} size={32}/>
+      <div className="searchbar">
+        <input type="text" onChange={(e) => props.onSearch(e.target.value)} />
+      </div>
     </div>
   )
 }
