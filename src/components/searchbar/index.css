@@ -1,0 +1,19 @@
+.searcharea{
+    margin-top: 20px;
+    margin: 20px 8px 0 28px;
+    display: flex;
+}
+
+.searchbar{
+    width: 90%;
+    border-radius: 9999px;
+    background-color: white;
+    border: 1px solid rgb(190, 190, 190);
+    box-shadow: 1px 1px 2px rgb(190, 190, 190);
+}
+
+.searchbar input{
+    border: none;
+    outline: none;
+    margin: 12px 8px 12px 16px;
+}
