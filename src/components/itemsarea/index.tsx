@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Searchbar } from "../searchbar"
 import { Card } from "./cardsarea";
+import "./index.css";
+
 
 export interface CardData{
   [key: string] : {     // e.g furniture
@@ -30,11 +32,11 @@ export const AreaItems = (props : {onSelect : (fileurl : string)=>void}) => {
 
 
   return (
-    <>
+    <div className="itemsarea">
         <Searchbar onSearch={(value)=> setSearch(value)} />
 
         {/* Cards Area */}
-        <div>
+        <div className="cardsarea">
           {
             Object.keys(items).map((category)=>{
               return Object.keys(items[category]).map((type) => {
@@ -43,6 +45,6 @@ export const AreaItems = (props : {onSelect : (fileurl : string)=>void}) => {
             })
           }
         </div>
-    </>
+    </div>
   )
 }

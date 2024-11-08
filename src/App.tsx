@@ -8,7 +8,7 @@ function App() {
   const [fileurl, setFileurl] = useState('');
 
   return (
-    <>
+    <div className='app'>
       {/* Navigation Menu */}
 
       {/* 3D Area */}
@@ -16,7 +16,7 @@ function App() {
 
       {/* Items Area */}
       <AreaItems onSelect={(fileurl) => {setFileurl(fileurl); setTimeout(()=> setFileurl(''), 1000)}}/>
-    </>
+    </div>
   )
 }
 
