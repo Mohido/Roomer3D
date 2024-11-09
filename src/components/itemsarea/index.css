@@ -1,5 +1,6 @@
 .itemsarea{
-    background-color: #F6F6F6;
+    background-color: var(--gray1);
+    overflow-y: scroll;
 }
 
 .cardsarea{
