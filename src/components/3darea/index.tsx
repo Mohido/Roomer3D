@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
+import { Canvas } from '@react-three/fiber'
 import "./index.css";
+import { Box } from './box';
 
 const Area3D = (props : {fileurl: string}) => {
   const [sceneItems, setSceneItems] = useState<string[]>([]);
@@ -28,10 +30,15 @@ const Area3D = (props : {fileurl: string}) => {
     style={{
         minWidth: calcSize(),
         height: calcSize(),
-        // backgroundColor: 'green'  // For debuggin...
       }} 
-      ref={areaDiv}>
-        {sceneItems.map((value)=> <h1 key={value + '-' + Math.random()}>{value}</h1>)}
+    ref={areaDiv}> 
+       <Canvas>
+          <ambientLight intensity={Math.PI / 2} />
+          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+          <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+          <Box position={[-1.2, 0, 0]} />
+          <Box position={[1.2, 0, 0]} />
+        </Canvas>
     </div>
   )
 }

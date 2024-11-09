@@ -1,55 +1,55 @@
 {
     "items" : {
-        "furniture" : {
-            "tables" : [
+        "Furniture" : {
+            "Tables" : [
                 {   
-                    "id" : "table.001",
-                    "description" : "wood, heavy",
-                    "thumbnail" : "#",
+                    "id" : "Table.001",
+                    "description" : "Wood, Heavy",
+                    "thumbnail" : "https://static.vecteezy.com/system/resources/previews/000/417/223/original/vector-wooden-round-table-on-white-background.jpg",
                     "fileurl" : "#"
                 },
                 {
-                    "id" : "table.002",
-                    "description" : "metal, glass",
-                    "thumbnail" : "#",
+                    "id" : "Table.002",
+                    "description" : "Metal, Glass",
+                    "thumbnail" : "https://i.pinimg.com/736x/18/a2/8c/18a28cac18d5db9b662ddf5c6e507741.jpg",
                     "fileurl" : "#"
                 }
             ], 
-            "chairs" : [
+            "Chairs" : [
                 {
-                    "id" : "chair.001",
-                    "description" : "light, chill",
-                    "thumbnail" : "#",
+                    "id" : "Chair.001",
+                    "description" : "Light, Chill",
+                    "thumbnail" : "https://static3.depositphotos.com/1000193/102/i/950/depositphotos_1027748-stock-photo-chair-on-a-white-background.jpg",
                     "fileurl" : "#"
                 },
                 {
-                    "id" : "chair.002",
-                    "description" : "gaming, cool",
-                    "thumbnail" : "#",
+                    "id" : "Chair.002",
+                    "description" : "Gaming, Cool",
+                    "thumbnail" : "https://m.media-amazon.com/images/I/61t4mpabO+L.jpg",
                     "fileurl" : "#"
                 }
             ],
-            "beds" : [
+            "Beds" : [
                 {
-                    "id" : "bed.001",
-                    "description" : "double",
-                    "thumbnail" : "#",
+                    "id" : "Bed.001",
+                    "description" : "Double",
+                    "thumbnail" : "https://img.freepik.com/premium-photo/double-bed-with-white-linen-isolated-white-background-3d-render_766233-9159.jpg",
                     "fileurl" : "#"
                 },
                 {
-                    "id" : "bed.002",
+                    "id" : "Bed.002",
                     "description" : "single",
-                    "thumbnail" : "#",
+                    "thumbnail" : "https://img.freepik.com/premium-photo/double-bed-with-white-linen-isolated-white-background-3d-render_766233-9112.jpg",
                     "fileurl" : "#"
                 }
             ]
         },
-        "decoration" : {
-            "plants" : [
+        "Decoration" : {
+            "Plants" : [
                 {
-                    "id" : "plant.001",
-                    "description" : "artificial",
-                    "thumbnail" : "#",
+                    "id" : "Plant.001",
+                    "description" : "Artificial",
+                    "thumbnail" : "https://img.freepik.com/premium-photo/indoor-plants-pot-isolated-white-background_158502-323.jpg",
                     "fileurl" : "#"
                 }
             ]
