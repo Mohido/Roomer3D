@@ -11,7 +11,7 @@ export interface CardData{
 }
 
 //  onSelect a callback with item data ()
-export const AreaItems = (props : {onSelect : (fileurl : string)=>void}) => {
+export const AreaItems = () => {
     const [search, setSearch] = useState('');
     const [items, setItems] = useState({} as CardData);
 
@@ -40,7 +40,7 @@ export const AreaItems = (props : {onSelect : (fileurl : string)=>void}) => {
           {
             Object.keys(items).map((category)=>{
               return Object.keys(items[category]).map((type) => {
-                return <Card type={type} category={category} key={category + '-' + type} filter={search} {...props} data={items[category][type]}/>
+                return <Card type={type} category={category} key={category + '-' + type} filter={search} data={items[category][type]}/>
               })
             })
           }
