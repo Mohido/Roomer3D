@@ -1,6 +1,14 @@
 import { useEffect, useRef} from 'react'
 import * as THREE from 'three';
 
+
+
+// Uses the AddObject Context to check for updates.
+export const Items3D = () => {
+
+}
+
+
 // dimensions must be 2 numbers defining the room size by meters
 export const Room = (props: {dimensions: number[]}) => {
   // This reference will give us direct access to the mesh
