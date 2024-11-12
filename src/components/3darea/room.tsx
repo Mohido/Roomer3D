@@ -26,7 +26,6 @@ export const Room = () => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const r_WallRef = useRef<THREE.Mesh>(null!);
   const l_WallRef = useRef<THREE.Mesh>(null!);
-  // const dragging = useRef<boolean>(false);
   const selectedObject = useRef<THREE.Mesh | null>(null);
 
   useEffect(() => {
@@ -36,8 +35,6 @@ export const Room = () => {
 
   const onMouseDown = (ev: ThreeEvent<MouseEvent>)=>{
     if(ev.object.name != "FLOOR"){
-      // dragging.current = true;
-      console.log(ev);
       selectedObject.current = ev.object as THREE.Mesh;
     }
   }
@@ -45,13 +42,10 @@ export const Room = () => {
     if(!selectedObject.current)
       return;
     const inter = ev.intersections[ev.intersections.length - 1];
-
-    
-      selectedObject.current.position.x = inter.point.x;
-      selectedObject.current.position.z = inter.point.z;
-          
+    selectedObject.current.position.x = inter.point.x;
+    selectedObject.current.position.z = inter.point.z;
   }
-  const onMouseUp = (ev: ThreeEvent<MouseEvent>)=>{
+  const onMouseUp = ()=>{
     selectedObject.current = null;
   }
 
