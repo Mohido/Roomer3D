@@ -1,13 +1,16 @@
+import { memo, useContext } from "react";
 import "./index.css";
 import {  FaRegArrowAltCircleDown, FaRegStar} from 'react-icons/fa';
+import { AddedObjectContext } from "../../../App";
 
 
 interface ItemData {id: string, thumbnail: string, description:string, fileurl: string};
 
-export const Item = (props: ItemData) => {
+export const Item = memo((props: ItemData) => {
   const item = props;
+  const {addObject} = useContext(AddedObjectContext);
 
-  return <div className="card-item" >
+  return <div className="card-item" onClick={()=> addObject(item.fileurl + '-' + Math.random())}>
   {/* Item Data */}
   <FaRegStar style={{alignSelf:"start",maxWidth: "16px", maxHeight: "16px", margin:"12px"}} />
   <div>
@@ -20,7 +23,7 @@ export const Item = (props: ItemData) => {
     <img className="card-item-thumbnail" width={64} height={64} src={item.thumbnail} alt={item.id} />
   {/* </div> */}
 </div>
-}
+})
 
 
 export interface CardProp {
@@ -29,7 +32,8 @@ export interface CardProp {
   filter: string, 
 };
 
-export const Card = (props : CardProp) => {
+
+export const Card = memo((props : CardProp) => {
   return <div className="card">
 
     {/* Header */}
@@ -57,5 +61,5 @@ export const Card = (props : CardProp) => {
 
     <hr />
   </div>;
-}
+})
 

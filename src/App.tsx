@@ -4,22 +4,26 @@ import Area3D from './components/3darea';
 import { AreaItems } from './components/itemsarea';
 
 
-const AddedObjectContext = createContext<any>(null);
+export const AddedObjectContext = createContext<{
+  sceneItems: string[];
+  addObject: (object3d: string) => void;
+}>(null!);
 
 
-const App = () => {
-  const [objectPath, setObjectPath] = useState<string>('');
+export const App = () => {
+
+  const [sceneItems, setSceneItems] = useState<string[]>([]);
 
   // Change objectpath (adds object)
-  const setObject = useCallback((object3d : string) => {
-    setObjectPath(object3d)
+  const addObject = useCallback((object3d : string) => {
+    setSceneItems((prev) => [...prev, object3d] );
   }, []);
 
   // Value of the context
   const contextValue = useMemo(() => ({
-    objectPath,
-    setObject
-  }), [objectPath, setObject]);
+    sceneItems,
+    addObject
+  }), [sceneItems, addObject]);
 
 
   return (
@@ -38,6 +42,4 @@ const App = () => {
   )
 }
 
-
-export default App;
 

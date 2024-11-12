@@ -1,11 +1,20 @@
-import { useEffect, useRef} from 'react'
+import { useContext, useEffect, useRef} from 'react'
 import * as THREE from 'three';
+import { AddedObjectContext } from '../../App';
+import { Item3D } from './item3d';
 
 
 
 // Uses the AddObject Context to check for updates.
 export const Items3D = () => {
-
+  const {sceneItems} = useContext(AddedObjectContext);
+  return <group>
+    {sceneItems.map(item => {
+      const url = item.substring(0, item.lastIndexOf('-'));
+      return <Item3D key={item} fileurl={url} />
+      })
+    }
+  </group>
 }
 
 
@@ -31,7 +40,6 @@ export const Room = (props: {dimensions: number[]}) => {
         <meshStandardMaterial color='gray' />
       </mesh>
 
-      {/* Right Wall  */}
       <mesh 
         {...props}
         scale={[props.dimensions[0], 1, 1]}
@@ -41,7 +49,6 @@ export const Room = (props: {dimensions: number[]}) => {
         <meshStandardMaterial color='gray' />
       </mesh>
 
-      {/* Left Wall */}
       <mesh
         {...props}
         scale={[1, 1, props.dimensions[1]]}
@@ -50,6 +57,8 @@ export const Room = (props: {dimensions: number[]}) => {
         <boxGeometry args={[1, 0.05, 1]} />
         <meshStandardMaterial color='gray' />
       </mesh>
+
+      <Items3D />
     </group>
   )
 }
