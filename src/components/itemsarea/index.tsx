@@ -11,6 +11,7 @@ export interface CardData{
 }
 
 //  onSelect a callback with item data ()
+// TODO: Switch searching to context.
 export const AreaItems = () => {
     const [search, setSearch] = useState('');
     const [items, setItems] = useState({} as CardData);

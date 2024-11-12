@@ -1,12 +1,11 @@
-import  { useEffect, useRef , memo, useState} from 'react';
+import  { useEffect, useRef , memo} from 'react';
 import { Canvas } from '@react-three/fiber'
 import "./index.css";
 import { Room } from './room';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei'
-import { Item3D } from './item3d';
 
 
-const Area3D = () => {
+const Area3D = memo(() => {
   const areaDiv = useRef(null);
 
   const calcSize = () => (window.innerHeight > window.innerWidth)? document.body.clientWidth : document.body.clientHeight;
@@ -39,14 +38,15 @@ const Area3D = () => {
       }} 
     ref={areaDiv}> 
        <Canvas>
-          <OrthographicCamera makeDefault zoom={400} position={[2,2,2]}/>
+          <OrthographicCamera makeDefault zoom={100} position={[2,2,2]}/>
           <ambientLight intensity={Math.PI / 2} />
           <directionalLight position={[-10, 10, -10]} intensity={Math.PI} />
-          <Room dimensions={[1,1]}/>
+          <Room/>
           <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={true}/>
+          {/* <OrbitControls /> */}
         </Canvas>
     </div>
   )
-}
+})
 
 export default Area3D;
