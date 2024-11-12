@@ -38,12 +38,12 @@ const Area3D = memo(() => {
       }} 
     ref={areaDiv}> 
        <Canvas>
-          <OrthographicCamera makeDefault zoom={400} position={[2,2,2]}/>
+          <OrthographicCamera makeDefault zoom={100} position={[2,2,2]}/>
           <ambientLight intensity={Math.PI / 2} />
           <directionalLight position={[-10, 10, -10]} intensity={Math.PI} />
-          <Room dimensions={[4,4]}/>
-          {/* <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={true}/> */}
-          <OrbitControls />
+          <Room/>
+          <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={true}/>
+          {/* <OrbitControls /> */}
         </Canvas>
     </div>
   )

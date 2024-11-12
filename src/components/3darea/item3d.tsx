@@ -1,6 +1,7 @@
 import { useEffect, useRef} from 'react'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three';
+import { ThreeEvent } from '@react-three/fiber';
 
 
 export const Item3D = (props: {fileurl : string}) => {
@@ -17,7 +18,7 @@ export const Item3D = (props: {fileurl : string}) => {
     console.log("Attached Scene!");
   },[]);
 
-  return <scene ref={sceneRef}></scene>
+  return <scene ref={sceneRef} ></scene>
 }
 
 
