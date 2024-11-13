@@ -1,21 +1,40 @@
 import { useContext, useEffect, useRef} from 'react'
 import * as THREE from 'three';
 import { AddedObjectContext } from '../../App';
-import { Item3D } from './item3d';
 import { ThreeEvent } from '@react-three/fiber';
+import { useGLTF, Gltf } from '@react-three/drei'
 
-
+useGLTF.preload('/1x1box.glb');
 
 // Uses the AddObject Context to check for updates.
 export const Items3D = () => {
   const {sceneItems} = useContext(AddedObjectContext);
-  return <group>
+  let origMat = useRef<THREE.Material | null>(null);
+  const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')});
+
+  const onEnter = (event: ThreeEvent<PointerEvent>) => {
+    const obj = event.object;
+    if(obj instanceof THREE.Mesh){
+      origMat.current = obj.material;
+      obj.material = hoverMat;
+    }
+  }
+
+  const onLeave = (event: ThreeEvent<PointerEvent>) => {
+    const obj = event.object;
+    if(obj instanceof THREE.Mesh){
+      obj.material = origMat.current;
+      origMat.current = null;
+    }
+  }
+
+  return <>
     {sceneItems.map(item => {
-      const url = item.substring(0, item.lastIndexOf('-'));
-      return <Item3D key={item} fileurl={url} />
+        const url = item.substring(0, item.lastIndexOf('-'));
+        return <Gltf key={item} src={url} onPointerEnter={onEnter} onPointerOut={onLeave}/>
       })
     }
-  </group>
+  </>
 }
 
 
@@ -70,6 +89,7 @@ export const Room = () => {
       </mesh>
 
       <group
+        name='Floor&Objects'
       onPointerOut={() => selectedObject.current=null}
       onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
         <mesh

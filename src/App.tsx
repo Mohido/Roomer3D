@@ -38,6 +38,7 @@ export const App = () => {
         <AreaItems />
       </AddedObjectContext.Provider>
 
+
     </div>
   )
 }
