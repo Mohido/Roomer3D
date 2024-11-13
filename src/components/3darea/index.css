@@ -1,4 +1,15 @@
 .area3d{
     flex-grow: 2;
     width: 60%;
+    position: relative;
+}
+
+
+.delete-button{
+    top: 10px;
+    font-size: large;
+    color: red;
+    left: 10px;
+    position: absolute;
+
 }

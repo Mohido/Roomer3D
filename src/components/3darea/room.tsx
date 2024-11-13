@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef} from 'react'
 import * as THREE from 'three';
-import { AddedObjectContext } from '../../App';
+import { ActiveMeshContext, AddedObjectContext } from '../../App';
 import { ThreeEvent } from '@react-three/fiber';
 import { useGLTF, Gltf } from '@react-three/drei'
 
@@ -9,6 +9,8 @@ useGLTF.preload('/1x1box.glb');
 // Uses the AddObject Context to check for updates.
 export const Items3D = () => {
   const {sceneItems} = useContext(AddedObjectContext);
+  const {setActiveMesh_cb} = useContext(ActiveMeshContext);
+
   let origMat = useRef<THREE.Material | null>(null);
   const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')});
 
@@ -31,7 +33,7 @@ export const Items3D = () => {
   return <>
     {sceneItems.map(item => {
         const url = item.substring(0, item.lastIndexOf('-'));
-        return <Gltf key={item} src={url} onPointerEnter={onEnter} onPointerOut={onLeave}/>
+        return <Gltf key={item} src={url} onPointerEnter={onEnter} onPointerOut={onLeave} onClick={()=>setActiveMesh_cb(item)}/>
       })
     }
   </>
