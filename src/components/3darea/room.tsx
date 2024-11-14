@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef} from 'react'
+import { memo, useContext, useEffect, useRef} from 'react'
 import * as THREE from 'three';
 import { ActiveMeshContext, AddedObjectContext } from '../../App';
 import { ThreeEvent } from '@react-three/fiber';
@@ -28,6 +28,7 @@ export const Room = () => {
   const r_WallRef = useRef<THREE.Mesh>(null!);
   const l_WallRef = useRef<THREE.Mesh>(null!);
   const selectedObject = useRef<THREE.Mesh | null>(null);
+  const {setActiveMesh_cb} = useContext(ActiveMeshContext);
 
   useEffect(() => {
     r_WallRef.current.rotation.x = Math.PI / 2;
@@ -51,7 +52,7 @@ export const Room = () => {
   }
 
   return (
-    <group position={[0,-1,0]}>
+    <group position={[0,-1,0]} onClick={()=> {console.log('Clicked Room'); setActiveMesh_cb('')}}>
       <mesh 
         name='RIGHT_WALL'
         scale={[dimensions[0], 1, 3]}

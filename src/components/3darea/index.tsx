@@ -24,6 +24,7 @@ const DeleteButton = ()=>{
 
 const Area3D = memo(() => {
   const areaDiv = useRef(null);
+  
 
   const calcSize = () => (window.innerHeight > window.innerWidth)? document.body.clientWidth : document.body.clientHeight;
 
@@ -58,7 +59,7 @@ const Area3D = memo(() => {
           <OrthographicCamera makeDefault zoom={100} position={[2,2,2]}/>
           <ambientLight intensity={Math.PI / 2} />
           <directionalLight position={[-10, 10, -10]} intensity={Math.PI} />
-          <Room/>
+          <Room />
           <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={true}/>
           {/* <OrbitControls /> */}
         </Canvas>
