@@ -28,6 +28,7 @@ export const App = () => {
   }, []);
 
   const deleteObject = useCallback((object3d : string) => {
+    setActiveMesh('');
     setSceneItems((prev) => prev.filter((v) => v != object3d) );
   }, []);
 
