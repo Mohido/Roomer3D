@@ -8,7 +8,6 @@ import { ActiveMeshContext, AddedObjectContext } from '../../App';
 
 
 const DeleteButton = ()=>{
-
   const {deleteObject} = useContext(AddedObjectContext);
   const {activeMesh} = useContext(ActiveMeshContext);
 
@@ -18,7 +17,9 @@ const DeleteButton = ()=>{
     }
   }
 
-  return <FaTrash className='delete-button' onClick={onClick}></FaTrash>
+  if(activeMesh.length > 0)
+    return <FaTrash className='delete-button' onClick={onClick}></FaTrash>
+  return <></> 
 }
 
 const Area3D = memo(() => {

@@ -6,10 +6,37 @@
 
 
 .delete-button{
-    top: 10px;
+    bottom: 10px;
     font-size: large;
     color: red;
     left: 10px;
     position: absolute;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    transition: all ease-out .1s;
+}
 
+
+.delete-button:hover{
+    color: darkred;
+    animation: infinite;
+    animation-name: wiggle;
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    33% { 
+        transform: rotateZ(45deg);
+    }
+    66% { 
+        transform: rotateZ(-45deg);
+    }
+    100% { 
+        transform: rotateZ(0deg);
+    }
 }
