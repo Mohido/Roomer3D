@@ -1,10 +1,10 @@
 import  { useEffect, useRef , memo} from 'react';
-
 import { Canvas } from '@react-three/fiber'
 import "./index.css";
 import { Room } from './room';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei'
-import { DeleteButton, SettingsButton } from './buttons';
+import { DeleteButton } from './buttons';
+import { SettingsButton } from '../settings';
 
 
 

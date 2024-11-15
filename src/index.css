@@ -10,3 +10,20 @@
     box-sizing: border-box;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+
+
+@keyframes wiggle {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    33% { 
+        transform: rotateZ(45deg);
+    }
+    66% { 
+        transform: rotateZ(-45deg);
+    }
+    100% { 
+        transform: rotateZ(0deg);
+    }
+}

@@ -14,6 +14,8 @@
     height: 32px;
     transition: all ease-out .1s;
 }
+
+
 .button-meta:hover{
     animation: infinite;
     animation-name: wiggle;
@@ -31,39 +33,3 @@
     color: darkred;
 }
 
-.gear-button {
-    top: 10px;
-    color: var(--gray3);
-}
-
-.modal-menu { 
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    width: 50%;
-    margin-right: -50%;
-    transform: translate(50%, 50%);
-    border: var(--gray2) 1px solid;
-    border-radius: 10px;
-    box-shadow: 1px 1px 2px var(--gray2);
-    outline: none;
-    background-color: var(--gray1);
-}
-
-
-
-@keyframes wiggle {
-    0% {
-        transform: rotateZ(0deg);
-    }
-    33% { 
-        transform: rotateZ(45deg);
-    }
-    66% { 
-        transform: rotateZ(-45deg);
-    }
-    100% { 
-        transform: rotateZ(0deg);
-    }
-}
