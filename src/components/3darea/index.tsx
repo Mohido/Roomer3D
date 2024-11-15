@@ -1,26 +1,13 @@
-import  { useEffect, useRef , memo, useContext} from 'react';
-import {FaTrash} from 'react-icons/fa';
+import  { useEffect, useRef , memo} from 'react';
+
 import { Canvas } from '@react-three/fiber'
 import "./index.css";
 import { Room } from './room';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei'
-import { ActiveMeshContext, AddedObjectContext } from '../../App';
+import { DeleteButton, SettingsButton } from './buttons';
 
 
-const DeleteButton = ()=>{
-  const {deleteObject} = useContext(AddedObjectContext);
-  const {activeMesh} = useContext(ActiveMeshContext);
 
-  const onClick = () => {
-    if(activeMesh.length > 0){
-      deleteObject(activeMesh);
-    }
-  }
-
-  if(activeMesh.length > 0)
-    return <FaTrash className='delete-button' onClick={onClick}></FaTrash>
-  return <></> 
-}
 
 const Area3D = memo(() => {
   const areaDiv = useRef(null);
@@ -65,6 +52,7 @@ const Area3D = memo(() => {
         </Canvas>
 
         <DeleteButton />
+        <SettingsButton />
     </div>
   )
 })

@@ -5,10 +5,8 @@
 }
 
 
-.delete-button{
-    bottom: 10px;
+.button-meta { 
     font-size: large;
-    color: red;
     left: 10px;
     position: absolute;
     cursor: pointer;
@@ -16,15 +14,44 @@
     height: 32px;
     transition: all ease-out .1s;
 }
-
-
-.delete-button:hover{
-    color: darkred;
+.button-meta:hover{
     animation: infinite;
     animation-name: wiggle;
     animation-duration: .5s;
     animation-timing-function: ease-in-out;
 }
+
+
+.delete-button{
+    bottom: 10px;
+    color: red;
+}
+
+.delete-button:hover{
+    color: darkred;
+}
+
+.gear-button {
+    top: 10px;
+    color: var(--gray3);
+}
+
+.modal-menu { 
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    width: 50%;
+    margin-right: -50%;
+    transform: translate(50%, 50%);
+    border: var(--gray2) 1px solid;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px var(--gray2);
+    outline: none;
+    background-color: var(--gray1);
+}
+
+
 
 @keyframes wiggle {
     0% {
