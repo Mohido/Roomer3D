@@ -1,6 +1,6 @@
 import { Gltf, useGLTF } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
-import React, { useContext, useEffect, useMemo, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import * as THREE from 'three';
 import { ActiveMeshContext } from '../../App';
 

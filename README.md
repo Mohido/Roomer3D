@@ -3,8 +3,8 @@
 
 ### Settings
 * [01 h] Settings Menu and Icon
-* [15 m] Dynamic Room Dimensions 
-* [02 h] Import / Export Scene Data (Serialize Scene)
+* [30 m] Dynamic Room Dimensions 
+* [04 h] Import / Export Scene Data (Serialize Scene)
     * TOTAL = 3h 15m
 
 ### Art
