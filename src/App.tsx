@@ -15,11 +15,19 @@ export const ActiveMeshContext = createContext<{
   setActiveMesh_cb: (uuid: string) => void;    // Takes threejs mesh uuid.
 }>(null!);
 
+export const RoomContext = createContext<{
+  dims: number[];
+  setDims_cb: (dim: number[]) => void;    // Takes threejs mesh uuid.
+}>(null!);
+
 
 export const App = () => {
 
   const [sceneItems, setSceneItems] = useState<string[]>([]);
   const [activeMesh, setActiveMesh] = useState<string>('');
+  const [dims, setDims] = useState<number[]>([4,4]);
+
+  const setDims_cb = useCallback((dim:number[]) => {setDims(dim)}, []);
 
   // Change objectpath (adds object)
   const setActiveMesh_cb = useCallback((uuid: string) => {setActiveMesh(uuid)}, []);
@@ -44,6 +52,10 @@ export const App = () => {
     setActiveMesh_cb
   }), [activeMesh, setActiveMesh_cb]);
 
+  const RoomContext_ctxt = useMemo(()=>({ 
+    dims,
+    setDims_cb
+  }), [dims, setDims_cb])
 
   return (
     <div className='app'>
@@ -52,7 +64,9 @@ export const App = () => {
       {/* 3D Area */}
       <AddedObjectContext.Provider value={contextValue}>
         <ActiveMeshContext.Provider value={ActivateMesh_ctxt}>
-          <Area3D />
+          <RoomContext.Provider value={RoomContext_ctxt}>
+            <Area3D />
+          </RoomContext.Provider>
         </ActiveMeshContext.Provider>
         {/* Items Area */}
         <AreaItems />

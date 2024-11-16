@@ -6,12 +6,13 @@ import './index.css';
 export interface DimInputProps{
   label: string;
   onComplete: (v: number | number[]) => void;
+  defaultState : number;
   desc: string;
 }
 
 
 export const DimInput = (props: DimInputProps) => {
-  const [dim, setDim] = useState<number>(4);
+  const [dim, setDim] = useState<number>(props.defaultState);
   return (
     <div className='dim-container'>
         <div className='dim-label'>
@@ -19,7 +20,7 @@ export const DimInput = (props: DimInputProps) => {
           <span>{dim}</span>
         </div>
         <Slider 
-          min={0} max={8} defaultValue={4} 
+          min={0} max={8} defaultValue={dim} 
           onChangeComplete={props.onComplete} 
           onChange={(v) => setDim(v as number)}/>
 
