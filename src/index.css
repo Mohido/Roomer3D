@@ -2,6 +2,10 @@
     --gray1:  #F6F6F6;
     --gray2: rgb(190, 190, 190);
     --gray3: rgb(139, 139, 139);
+    --submit: rgb(138, 255, 138);
+    --submit-dark: rgb(110, 203, 110);
+    --cancel: rgb(255, 138, 138);
+    --cancel-dark: rgb(203, 109, 109);
 }
 
 * {

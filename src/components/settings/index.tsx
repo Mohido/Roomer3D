@@ -1,7 +1,10 @@
 import { useContext, useState } from 'react';
 import { FaGear } from "react-icons/fa6";
+import { MdOutlineFileDownload, MdOutlineFileUpload  } from "react-icons/md";
+
 import Modal from 'react-modal';
 import './index.css';
+import { DimInput } from '../dimslider';
 
 
 // TODO: Make it pretty
@@ -29,35 +32,33 @@ export const SettingsButton = ()=>{
                 </div>
 
                 <div className='subtitle-content'>
-                    <div>
-                        <label htmlFor="dimension">Width</label>
-                        <input name='dimension' type='number'/>
-                    </div>
-
-                    <div>
-                        <label htmlFor="dimension">Depth</label>
-                        <input name='dimension' type='number'/>
-                    </div>
+                    <DimInput label='Width' desc="Changes room width" onComplete={(v) => console.log(v)} />
+                    <DimInput label='Length' desc="Changes room length" onComplete={(v) => console.log(v)} />
                 </div>
-                    
-                    
-
 
                 <div className='subtitle-header'>
                     <h2 className='modal-subtitle'>Room Dimensions</h2>
                     <span className='line'></span>
                 </div>
+
                 <div className='subtitle-content'>
-                    <button>Save</button>
-                    <button>Load</button>
+                    <button className='load-button'>
+                        <MdOutlineFileDownload className='button-icon'/>
+                        <span>Save</span>
+                    </button>
+                    <button className='load-button'>
+                        <MdOutlineFileUpload className='button-icon' />
+                        <span>Load</span>
+                    </button>
                 </div>
                     
                 <div className='subtitle-header'>
                     <span className='line'></span>
                 </div>
-                <div className='subtitle-content'>
-                    <button onClick={() => setActiveMenu(false)}>Submit</button>
-                    <button onClick={() => setActiveMenu(false)}>Cancel</button>
+
+                <div className='footer'>
+                    <button className='load-button submit' onClick={() => setActiveMenu(false)}>Submit</button>
+                    <button className='load-button cancel' onClick={() => setActiveMenu(false)}>Cancel</button>
                 </div>
             </Modal>
         </div>
