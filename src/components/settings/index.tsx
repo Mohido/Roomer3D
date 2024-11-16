@@ -9,7 +9,7 @@ import { RoomContext } from '../../App';
 
 
 
-// TODO: Make it functional (AFTER BREAK!!!)
+// TODO: Uploading and Downloading data...
 // NOTE: Every time the menu opens, the entire component gets re-rendered!
 export const SettingsButton = ()=>{
     const [activeMenu, setActiveMenu] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export const SettingsButton = ()=>{
         if(typeof v == "number")
             dimensions[0] = v;
     }
-    
+
     const updateWidth_y = (v:number | number[]) => {
         if(typeof v == "number")
             dimensions[1] = v;
