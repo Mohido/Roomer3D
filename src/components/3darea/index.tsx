@@ -11,10 +11,7 @@ import { SettingsButton } from '../settings';
 
 const Area3D = memo(() => {
   const areaDiv = useRef(null);
-  
-
   const calcSize = () => (window.innerHeight > window.innerWidth)? document.body.clientWidth : document.body.clientHeight;
-
   // Use SideEffect to track fileurl change.
   useEffect(() => {
     if(!areaDiv.current)

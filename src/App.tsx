@@ -36,20 +36,22 @@ export const App = () => {
   const [dims, setDims] = useState<number[]>([4,4]);
   const [positions, setPos] = useState<{[mesh_id: string] : number[]}>({});
 
-  // TODO: Continue implementing Data Importing and Exporting...
   const setDims_cb = useCallback((dim:number[]) => {setDims(dim)}, []);
+
   const updatePosition_cb = (mesh_id: string, newPos : number[]) => {
-    if(!positions[mesh_id]){
-      setPos({...positions, mesh_id: newPos})
-    }else{
-      const t = positions;
-      t[mesh_id] = newPos;
-      setPos(t);
-    }
-  }; // Adds or updates position
+    const t = positions;
+    t[mesh_id] = newPos;
+    setPos({...t})
+    console.log('Adding mesh position: ', positions)
+  };
   const removePosition_cb = (mesh_id: string) => {
-    
-  };  // Removes a mesh
+      const n = positions;
+      delete n[mesh_id];
+      console.log('Removed mesh_id ', mesh_id, ' from positions: ', n);
+      setPos(n);
+  }; 
+
+
 
 
   // Change objectpath (adds object)
@@ -80,6 +82,14 @@ export const App = () => {
     setDims_cb
   }), [dims, setDims_cb])
 
+  const positionCtxtValue = useMemo(() => ({
+    positions,
+    removePosition_cb,
+    updatePosition_cb
+  }), [positions, removePosition_cb, updatePosition_cb]);
+
+
+
   return (
     <div className='app'>
       {/* Navigation Menu */}
@@ -88,7 +98,9 @@ export const App = () => {
       <AddedObjectContext.Provider value={contextValue}>
         <ActiveMeshContext.Provider value={ActivateMesh_ctxt}>
           <RoomContext.Provider value={RoomContext_ctxt}>
+           <ObjectsPositionsContext.Provider value={positionCtxtValue}>
             <Area3D />
+           </ObjectsPositionsContext.Provider>
           </RoomContext.Provider>
         </ActiveMeshContext.Provider>
         {/* Items Area */}
