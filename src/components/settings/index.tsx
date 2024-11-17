@@ -5,8 +5,8 @@ import { MdOutlineFileDownload, MdOutlineFileUpload  } from "react-icons/md";
 import Modal from 'react-modal';
 import './index.css';
 import { DimInput } from '../dimslider';
-import { RoomContext } from '../../App';
-
+import { AddedObjectContext, ObjectsPositionsContext, RoomContext } from '../../App';
+import { saveAs } from 'file-saver';
 
 
 // TODO: Uploading and Downloading data...
@@ -14,7 +14,12 @@ import { RoomContext } from '../../App';
 export const SettingsButton = ()=>{
     const [activeMenu, setActiveMenu] = useState<boolean>(false);
     const {dims, setDims_cb} = useContext(RoomContext);
+    const {positions, updatePosition_cb, removePosition_cb} = useContext(ObjectsPositionsContext);
+    const { addObject, clear_cb } = useContext(AddedObjectContext);
     const dimensions = [dims[0], dims[1]];
+    const fileRef = useRef<HTMLInputElement>(null!);
+    const [file, setFile] = useState<File | undefined | null>();
+
 
     const updateWidth_x = (v:number | number[]) => {
         if(typeof v == "number")
@@ -29,10 +34,35 @@ export const SettingsButton = ()=>{
     const onSubmit = () => {
         setDims_cb(dimensions);
         setActiveMenu(false);
+
+        if(file){
+            clear_cb(); 
+            const c = positions;
+            Object.keys(c).forEach(k => removePosition_cb(k));
+
+            file.arrayBuffer().then((a) => {
+                // Decode arraybuffer.
+                const d : {[key: string]: number[]} = JSON.parse(new TextDecoder().decode(a));
+                Object.entries(d).forEach(([name, pos])=> {
+                    addObject(name);
+                    updatePosition_cb(name, pos);
+                })
+
+                setFile(null);
+            })
+        }
     }
 
     const onCancel = () => {
         setActiveMenu(false);
+        setFile(null);
+    }
+
+    const onSave = () => {
+        const fileToSave = new Blob([JSON.stringify(positions)], {
+            type: 'application/json'
+        });
+        saveAs(fileToSave, 'scene.json');
     }
 
     return <>
@@ -60,18 +90,18 @@ export const SettingsButton = ()=>{
                 </div>
 
                 <div className='subtitle-header'>
-                    <h2 className='modal-subtitle'>Room Dimensions</h2>
+                    <h2 className='modal-subtitle'>Scene</h2>
                     <span className='line'></span>
                 </div>
 
                 <div className='subtitle-content'>
-                    <button className='load-button'>
+                    <button onClick={onSave} className='load-button'>
                         <MdOutlineFileDownload className='button-icon'/>
                         <span>Save</span>
                     </button>
-                    <button className='load-button'>
+                    <button onClick={()=> fileRef.current.click()} className='load-button'>
                         <MdOutlineFileUpload className='button-icon' />
-                        <span>Load</span>
+                        <span>Load <h6>{file && file.name}</h6></span>
                     </button>
                 </div>
                     
@@ -83,6 +113,9 @@ export const SettingsButton = ()=>{
                     <button className='load-button submit' onClick={onSubmit}>Submit</button>
                     <button className='load-button cancel' onClick={onCancel}>Cancel</button>
                 </div>
+                <input 
+                    onChange={()=> setFile(fileRef.current.files?.item(0))} 
+                    ref={fileRef} type='file' hidden/>
             </Modal>
         </div>
         
