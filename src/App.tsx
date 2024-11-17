@@ -9,6 +9,7 @@ export const AddedObjectContext = createContext<{
   sceneItems: string[];
   addObject: (object3d: string) => void;
   deleteObject: (url_key : string) => void;
+  clear_cb: () => void;  // Removes all objects from scene
 }>(null!);
 
 // Handles the positions of the scene objects
@@ -51,6 +52,8 @@ export const App = () => {
       setPos(n);
   }; 
 
+  // Will clear everything!
+  const clear_cb = useCallback(() => {setSceneItems([])}, []);
 
 
 
@@ -69,8 +72,9 @@ export const App = () => {
   const contextValue = useMemo(() => ({
     sceneItems,
     addObject,
-    deleteObject
-  }), [sceneItems, addObject, deleteObject]);
+    deleteObject,
+    clear_cb
+  }), [sceneItems, addObject, deleteObject, clear_cb]);
 
   const ActivateMesh_ctxt = useMemo(() => ({
     activeMesh,
@@ -86,7 +90,7 @@ export const App = () => {
     positions,
     removePosition_cb,
     updatePosition_cb
-  }), [positions, removePosition_cb, updatePosition_cb]);
+  }), [positions, removePosition_cb, updatePosition_cb, clear_cb]);
 
 
 

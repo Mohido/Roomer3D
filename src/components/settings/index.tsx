@@ -5,7 +5,7 @@ import { MdOutlineFileDownload, MdOutlineFileUpload  } from "react-icons/md";
 import Modal from 'react-modal';
 import './index.css';
 import { DimInput } from '../dimslider';
-import { ObjectsPositionsContext, RoomContext } from '../../App';
+import { AddedObjectContext, ObjectsPositionsContext, RoomContext } from '../../App';
 import { saveAs } from 'file-saver';
 
 
@@ -14,7 +14,8 @@ import { saveAs } from 'file-saver';
 export const SettingsButton = ()=>{
     const [activeMenu, setActiveMenu] = useState<boolean>(false);
     const {dims, setDims_cb} = useContext(RoomContext);
-    const {positions, updatePosition_cb} = useContext(ObjectsPositionsContext);
+    const {positions, updatePosition_cb, removePosition_cb} = useContext(ObjectsPositionsContext);
+    const { addObject, clear_cb } = useContext(AddedObjectContext);
     const dimensions = [dims[0], dims[1]];
     const fileRef = useRef<HTMLInputElement>(null!);
     const [file, setFile] = useState<File | undefined | null>();
@@ -33,6 +34,23 @@ export const SettingsButton = ()=>{
     const onSubmit = () => {
         setDims_cb(dimensions);
         setActiveMenu(false);
+
+        if(file){
+            clear_cb(); 
+            const c = positions;
+            Object.keys(c).forEach(k => removePosition_cb(k));
+
+            file.arrayBuffer().then((a) => {
+                // Decode arraybuffer.
+                const d : {[key: string]: number[]} = JSON.parse(new TextDecoder().decode(a));
+                Object.entries(d).forEach(([name, pos])=> {
+                    addObject(name);
+                    updatePosition_cb(name, pos);
+                })
+
+                setFile(null);
+            })
+        }
     }
 
     const onCancel = () => {
@@ -41,10 +59,7 @@ export const SettingsButton = ()=>{
     }
 
     const onSave = () => {
-        const data = JSON.stringify(positions);
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(data);
-
-        const fileToSave = new Blob([data], {
+        const fileToSave = new Blob([JSON.stringify(positions)], {
             type: 'application/json'
         });
         saveAs(fileToSave, 'scene.json');
