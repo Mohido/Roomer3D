@@ -28,4 +28,9 @@
 * [30 m] Dockerize the application into portable docker container
     * TOTAL = 30m
 
-### ....
+### Bugs
+* [...] Objects with multiple meshes.
+* [...] Make active onMouseDown instead of onMouseUp
+* [...] Fix Table position reset
+
+
