@@ -7,9 +7,10 @@
 * T [04 h] Import / Export Scene Data (Serialize Scene)
 * [20 m] Save Dimensions as Well
 * [20 m] Remove Position When Item Removed
+* [30 m] Rotating Object
 
 ### Art
-* [14 h] Model the Scene Items
+* [12 h] Model the Scene Items
 * [01 h] Implement Shadows and better lighting setup
     * TOTAL = 15h
 
