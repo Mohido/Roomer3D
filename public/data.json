@@ -5,8 +5,8 @@
                 {   
                     "id" : "Table.001",
                     "description" : "Wood, Heavy",
-                    "thumbnail" : "https://static.vecteezy.com/system/resources/previews/000/417/223/original/vector-wooden-round-table-on-white-background.jpg",
-                    "fileurl" : "/1x1box.glb"
+                    "thumbnail" : "table/thumbnail_compressed.png",
+                    "fileurl" : "table/table.glb"
                 },
                 {
                     "id" : "Table.002",
@@ -19,8 +19,8 @@
                 {
                     "id" : "Chair.001",
                     "description" : "Light, Chill",
-                    "thumbnail" : "https://static3.depositphotos.com/1000193/102/i/950/depositphotos_1027748-stock-photo-chair-on-a-white-background.jpg",
-                    "fileurl" : "#"
+                    "thumbnail" : "chair_1/thumbnail_compressed.png",
+                    "fileurl" : "chair_1/chair.glb"
                 },
                 {
                     "id" : "Chair.002",
