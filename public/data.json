@@ -25,16 +25,16 @@
                 {
                     "id" : "Chair.002",
                     "description" : "Gaming, Cool",
-                    "thumbnail" : "https://m.media-amazon.com/images/I/61t4mpabO+L.jpg",
-                    "fileurl" : "#"
+                    "thumbnail" : "chair_2/thumbnail_compressed.png",
+                    "fileurl" : "chair_2/chair.glb"
                 }
             ],
             "Beds" : [
                 {
                     "id" : "Bed.001",
                     "description" : "Double",
-                    "thumbnail" : "https://img.freepik.com/premium-photo/double-bed-with-white-linen-isolated-white-background-3d-render_766233-9159.jpg",
-                    "fileurl" : "#"
+                    "thumbnail" : "bed_1/thumbnail_compressed.png",
+                    "fileurl" : "bed_1/bed.glb"
                 },
                 {
                     "id" : "Bed.002",
