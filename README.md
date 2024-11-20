@@ -12,7 +12,7 @@
 
 
 ### Art
-* [12 h] Model the Scene Items
+* T [12 h] Model the Scene Items
 * [01 h] Implement Shadows and better lighting setup
     * TOTAL = 15h
 

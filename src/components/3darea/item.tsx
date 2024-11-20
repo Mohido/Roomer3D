@@ -4,14 +4,13 @@ import { useContext, useEffect, useRef } from 'react'
 import * as THREE from 'three';
 import { ActiveMeshContext, ObjectsPositionsContext } from '../../App';
 
+const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')});
 
 export const GlbMesh = (props: {file_id: string}) => {
     const {activeMesh, setActiveMesh_cb} = useContext(ActiveMeshContext);
     const {positions, updatePosition_cb} = useContext(ObjectsPositionsContext);
     const origMat = useRef<THREE.Material | null>(null);
-    const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')});
     const groupRef = useRef(null!);
-
 
     useEffect(() => {
         const g = (groupRef.current as THREE.Group);
@@ -68,7 +67,8 @@ export const GlbMesh = (props: {file_id: string}) => {
 
     const url = props.file_id.substring(0, props.file_id.lastIndexOf('-'));
   return (
-    <Gltf ref={groupRef} src={url} 
+    <Gltf castShadow
+     ref={groupRef} src={url} 
     onPointerEnter={onEnter} 
     onPointerOut={onLeave} 
     onPointerDown={onMouseDown} 

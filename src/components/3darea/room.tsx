@@ -62,6 +62,7 @@ export const Room = () => {
           setActiveMesh_cb('');
       }}>
       <mesh 
+        castShadow
         name='RIGHT_WALL'
         scale={[dims[0], 1, 3]}
         position={[0, 1.475, - dims[1] / 2]}
@@ -71,6 +72,7 @@ export const Room = () => {
       </mesh>
 
       <mesh
+        castShadow
         name='LEFT_WALL'
         scale={[3, 1, dims[1]]}
         position={[-dims[0] / 2, 1.475, 0]}
@@ -84,6 +86,7 @@ export const Room = () => {
       onPointerOut={() => selectedObject.current=null}
       onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
         <mesh
+          castShadow
           name='FLOOR'
           scale={[dims[0], 1, dims[1]]}
           ref={meshRef}>
