@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef} from 'react'
 import * as THREE from 'three';
-import { ActiveMeshContext, AddedObjectContext, RoomContext } from '../../App';
+import { ActiveMeshContext, AddedObjectContext, ObjectsPositionsContext, RoomContext } from '../../App';
 import { ThreeEvent } from '@react-three/fiber';
 import { GlbMesh } from './item';
 
@@ -28,7 +28,8 @@ export const Room = () => {
   const r_WallRef = useRef<THREE.Mesh>(null!);
   const l_WallRef = useRef<THREE.Mesh>(null!);
   const selectedObject = useRef<THREE.Mesh | null>(null);
-  const {setActiveMesh_cb} = useContext(ActiveMeshContext);
+  const {activeMesh, setActiveMesh_cb} = useContext(ActiveMeshContext);
+  const { updatePosition_cb} = useContext(ObjectsPositionsContext);
   const {dims} = useContext(RoomContext);
 
   useEffect(() => {
@@ -49,12 +50,19 @@ export const Room = () => {
     selectedObject.current.position.z = inter.point.z;
   }
   const onMouseUp = ()=>{
+    if(!selectedObject.current)
+      return;
+    updatePosition_cb(activeMesh, [selectedObject.current.position.x, selectedObject.current.position.z] );
     selectedObject.current = null;
   }
 
   return (
-    <group position={[0,-1,0]} onClick={()=> {console.log('Clicked Room'); setActiveMesh_cb('')}}>
+    <group position={[0,-1,0]} onPointerDown={()=> {
+        if(!selectedObject.current)
+          setActiveMesh_cb('');
+      }}>
       <mesh 
+        castShadow
         name='RIGHT_WALL'
         scale={[dims[0], 1, 3]}
         position={[0, 1.475, - dims[1] / 2]}
@@ -64,6 +72,7 @@ export const Room = () => {
       </mesh>
 
       <mesh
+        castShadow
         name='LEFT_WALL'
         scale={[3, 1, dims[1]]}
         position={[-dims[0] / 2, 1.475, 0]}
@@ -77,6 +86,7 @@ export const Room = () => {
       onPointerOut={() => selectedObject.current=null}
       onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
         <mesh
+          castShadow
           name='FLOOR'
           scale={[dims[0], 1, dims[1]]}
           ref={meshRef}>

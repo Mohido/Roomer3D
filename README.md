@@ -9,8 +9,10 @@
 * [20 m] Remove Position When Item Removed
 * [30 m] Rotating Object
 
+
+
 ### Art
-* [12 h] Model the Scene Items
+* T [12 h] Model the Scene Items
 * [01 h] Implement Shadows and better lighting setup
     * TOTAL = 15h
 
@@ -20,6 +22,7 @@
 * [....] Implement Testing
 * [4 h] Fix events to work on groups instead of individual meshes (The current implementation only supports moving single mesh)
 * [1.5 h] Group SceneItems and Positions and Dimensions into 1 context
+
     * TOTAL = UNKOWN
 
 

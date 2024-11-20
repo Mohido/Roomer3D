@@ -39,10 +39,12 @@ const Area3D = memo(() => {
         height: calcSize()
       }} 
     ref={areaDiv}> 
-       <Canvas>
+       <Canvas shadows>
           <OrthographicCamera makeDefault zoom={100} position={[2,2,2]}/>
           <ambientLight intensity={Math.PI / 2} />
-          <directionalLight position={[-10, 10, -10]} intensity={Math.PI} />
+          <directionalLight castShadow shadow-mapSize={2048} shadow-bias={-0.001} position={[-10, 10, -10]} intensity={Math.PI} > 
+            {/* <orthographicCamera attach="shadow-camera" args={[-8.5, 8.5, 8.5, -8.5, 0.1, 20]} /> */}
+          </directionalLight>
           <Room />
           <OrbitControls enablePan={false} enableRotate={false} enableDamping={false} enableZoom={true}/>
           {/* <OrbitControls /> */}
