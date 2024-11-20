@@ -57,22 +57,22 @@ export const GlbMesh = (props: {file_id: string}) => {
         }
     }
 
-    const onClick =  (event: ThreeEvent<MouseEvent>) => {
+
+    const onMouseDown=  (event: ThreeEvent<MouseEvent>) => {
         const obj = event.object;
         if(obj instanceof THREE.Mesh){
             obj.material = hoverMat;
         }
         setActiveMesh_cb(props.file_id);
-        event.stopPropagation();
-    }
-    const onMouseUp = (event: ThreeEvent<MouseEvent>) => {
-        const m = event.object as THREE.Mesh;
-        updatePosition_cb(props.file_id, [m.position.x, m.position.z] );
     }
 
     const url = props.file_id.substring(0, props.file_id.lastIndexOf('-'));
   return (
-    <Gltf ref={groupRef} src={url} onPointerEnter={onEnter} onPointerOut={onLeave} onClick={onClick} onPointerUp={onMouseUp}/>
+    <Gltf ref={groupRef} src={url} 
+    onPointerEnter={onEnter} 
+    onPointerOut={onLeave} 
+    onPointerDown={onMouseDown} 
+    />
   )
 }
 
