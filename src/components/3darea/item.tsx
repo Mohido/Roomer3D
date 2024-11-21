@@ -8,7 +8,7 @@ const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')}
 
 export const GlbMesh = (props: {file_id: string}) => {
     const {activeMesh, setActiveMesh_cb} = useContext(ActiveMeshContext);
-    const {positions, updatePosition_cb} = useContext(ObjectsPositionsContext);
+    const {rotations, updateRotation_cb, positions, updatePosition_cb} = useContext(ObjectsPositionsContext);
     const origMat = useRef<THREE.Material | null>(null);
     const groupRef = useRef(null!);
 
@@ -21,10 +21,12 @@ export const GlbMesh = (props: {file_id: string}) => {
                 if(child instanceof THREE.Mesh){
                     child.position.x = positions[props.file_id][0];
                     child.position.z = positions[props.file_id][1];
+                    child.rotation.y = rotations[props.file_id];
                 }
             })
         }else{
             updatePosition_cb(props.file_id, [0,0]);
+            updateRotation_cb(props.file_id, 0);
         }
 
         if(origMat.current === null){
@@ -57,17 +59,21 @@ export const GlbMesh = (props: {file_id: string}) => {
     }
 
 
-    const onMouseDown=  (event: ThreeEvent<MouseEvent>) => {
+    const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
         const obj = event.object;
-        if(obj instanceof THREE.Mesh){
+        if(event.button == 0 && obj instanceof THREE.Mesh){
+            setActiveMesh_cb(props.file_id);
             obj.material = hoverMat;
+        }else if(event.button == 2) {
+            obj.rotation.y += Math.PI/4;
+            updateRotation_cb(props.file_id,obj.rotation.y);
         }
-        setActiveMesh_cb(props.file_id);
     }
 
     const url = props.file_id.substring(0, props.file_id.lastIndexOf('-'));
   return (
     <Gltf castShadow
+    receiveShadow
      ref={groupRef} src={url} 
     onPointerEnter={onEnter} 
     onPointerOut={onLeave} 

@@ -1,56 +1,64 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { FaGear } from "react-icons/fa6";
 import { MdOutlineFileDownload, MdOutlineFileUpload  } from "react-icons/md";
 
 import Modal from 'react-modal';
 import './index.css';
 import { DimInput } from '../dimslider';
-import { AddedObjectContext, ObjectsPositionsContext, RoomContext } from '../../App';
+import { SceneContext } from '../../App';
 import { saveAs } from 'file-saver';
+
+
+interface SaveFileStruct {
+    objects:  {[mesh_id: string]: {position: number[], rotation: number}};
+    dimensions : number[];
+}
 
 
 // TODO: Uploading and Downloading data...
 // NOTE: Every time the menu opens, the entire component gets re-rendered!
 export const SettingsButton = ()=>{
     const [activeMenu, setActiveMenu] = useState<boolean>(false);
-    const {dims, setDims_cb} = useContext(RoomContext);
-    const {positions, updatePosition_cb, removePosition_cb} = useContext(ObjectsPositionsContext);
-    const { addObject, clear_cb } = useContext(AddedObjectContext);
-    const dimensions = [dims[0], dims[1]];
+    const {dimensions, setDimensions_cb,  objects, updateObject_cb, clearObjects_cb} = useContext(SceneContext);
+    const m_dimensions = [dimensions[0], dimensions[1]]; // local demensions
     const fileRef = useRef<HTMLInputElement>(null!);
     const [file, setFile] = useState<File | undefined | null>();
 
 
     const updateWidth_x = (v:number | number[]) => {
         if(typeof v == "number")
-            dimensions[0] = v;
+            m_dimensions[0] = v;
     }
 
     const updateWidth_y = (v:number | number[]) => {
         if(typeof v == "number")
-            dimensions[1] = v;
+            m_dimensions[1] = v;
     }
 
     const onSubmit = () => {
-        setDims_cb(dimensions);
-        setActiveMenu(false);
-
         if(file){
-            clear_cb(); 
-            const c = positions;
-            Object.keys(c).forEach(k => removePosition_cb(k));
+            // Remove old scene
+            clearObjects_cb(); 
 
+            // Refill scene
             file.arrayBuffer().then((a) => {
                 // Decode arraybuffer.
-                const d : {[key: string]: number[]} = JSON.parse(new TextDecoder().decode(a));
-                Object.entries(d).forEach(([name, pos])=> {
-                    addObject(name);
-                    updatePosition_cb(name, pos);
+                const data : SaveFileStruct = JSON.parse(new TextDecoder().decode(a));
+
+                // Add Objects to scene
+                Object.entries(data.objects).forEach(([name, transform])=> {
+                    updateObject_cb(name, transform.position, transform.rotation, true);
                 })
 
+                // Set Room Dimensions
+                setDimensions_cb(data.dimensions); 
                 setFile(null);
             })
+        }else{
+            setDimensions_cb(m_dimensions);
         }
+
+        setActiveMenu(false);
     }
 
     const onCancel = () => {
@@ -59,7 +67,8 @@ export const SettingsButton = ()=>{
     }
 
     const onSave = () => {
-        const fileToSave = new Blob([JSON.stringify(positions)], {
+        const data : SaveFileStruct = {objects , dimensions};
+        const fileToSave = new Blob([JSON.stringify(data)], {
             type: 'application/json'
         });
         saveAs(fileToSave, 'scene.json');

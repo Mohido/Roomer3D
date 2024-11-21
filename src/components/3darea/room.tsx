@@ -38,7 +38,7 @@ export const Room = () => {
   }, []);
 
   const onMouseDown = (ev: ThreeEvent<MouseEvent>)=>{
-    if(ev.object.name != "FLOOR"){
+    if(ev.object.name != "FLOOR" && ev.button == 0){
       selectedObject.current = ev.object as THREE.Mesh;
     }
   }
@@ -63,6 +63,7 @@ export const Room = () => {
       }}>
       <mesh 
         castShadow
+        receiveShadow
         name='RIGHT_WALL'
         scale={[dims[0], 1, 3]}
         position={[0, 1.475, - dims[1] / 2]}
@@ -72,6 +73,7 @@ export const Room = () => {
       </mesh>
 
       <mesh
+      receiveShadow
         castShadow
         name='LEFT_WALL'
         scale={[3, 1, dims[1]]}
@@ -86,7 +88,7 @@ export const Room = () => {
       onPointerOut={() => selectedObject.current=null}
       onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
         <mesh
-          castShadow
+          receiveShadow
           name='FLOOR'
           scale={[dims[0], 1, dims[1]]}
           ref={meshRef}>
