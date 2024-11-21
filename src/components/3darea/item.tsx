@@ -68,6 +68,7 @@ export const GlbMesh = (props: {file_id: string}) => {
     const url = props.file_id.substring(0, props.file_id.lastIndexOf('-'));
   return (
     <Gltf castShadow
+    receiveShadow
      ref={groupRef} src={url} 
     onPointerEnter={onEnter} 
     onPointerOut={onLeave} 
