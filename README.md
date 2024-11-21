@@ -6,7 +6,7 @@
 * T [30 m] Dynamic Room Dimensions 
 * T [04 h] Import / Export Scene Data (Serialize Scene)
 * [20 m] Save Dimensions as Well
-* [20 m] Remove Position When Item Removed
+* T [20 m] Remove Position When Item Removed
 * [30 m] Rotating Object
 
 
