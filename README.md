@@ -5,7 +5,6 @@
 * T [01 h] Settings Menu and Icon
 * T [30 m] Dynamic Room Dimensions 
 * T [04 h] Import / Export Scene Data (Serialize Scene)
-* [20 m] Save Dimensions as Well
 * T [20 m] Remove Position When Item Removed
 * T [30 m] Rotating Object
 * [02 h] Touch Screen Movement and Rotation Implementation
@@ -23,7 +22,8 @@
 * [....] Search the application for bottlenecks
 * [....] Implement Testing
 * [4 h] Fix events to work on groups instead of individual meshes (The current implementation only supports moving single mesh)
-* [1.5 h] Group SceneItems and Positions and Dimensions into 1 context
+* [1.5 h] Group SceneItems and Positions and Dimensions into 1 context <- IN PROGRESS
+* [20 m] Save Dimensions as Well  <- Done
     * TOTAL = UNKOWN
 
 

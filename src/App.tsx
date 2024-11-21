@@ -5,111 +5,85 @@ import { AreaItems } from './components/itemsarea';
 
 
 // A list of the scene objects
-export const AddedObjectContext = createContext<{
-  sceneItems: string[];
-  addObject: (object3d: string) => void;
-  deleteObject: (url_key : string) => void;
-  clear_cb: () => void;  // Removes all objects from scene
+
+
+export interface SceneObjectsTransforms {
+  [mesh_id: string] : {position : number[], rotation: number};
+}
+
+export const SceneContext = createContext<{
+  active: string;
+  objects: SceneObjectsTransforms;
+  dimensions: number[];
+  updateObject_cb: (mesh_id: string, position?: number[], rotation?: number, force?: boolean) => boolean; // Adds/updates a mesh. Force would add it if it doesn't exist
+  removeObject_cb: (mesh_id: string) => boolean;      // Removes a mesh
+  clearObjects_cb : () => boolean;                    // clears the entire scene 
+  setActiveObject_cb: (uuid: string) => boolean;           // Takes threejs mesh uuid.
+  setDimensions_cb: (dim: number[]) => boolean;          // Takes threejs mesh uuid.
 }>(null!);
 
-// Handles the positions of the scene objects
-export const ObjectsPositionsContext = createContext<{
-  positions: {[mesh_id: string] : number[]};        // meshname_123451 -> [0,1]
-  updatePosition_cb: (mesh_id: string, newPos : number[]) => void; // Adds or updates position
-  removePosition_cb: (mesh_id: string) => void;  // Removes a mesh
-}>(null!);
 
-export const ActiveMeshContext = createContext<{
-  activeMesh: string;
-  setActiveMesh_cb: (uuid: string) => void;    // Takes threejs mesh uuid.
-}>(null!);
 
-export const RoomContext = createContext<{
-  dims: number[];
-  setDims_cb: (dim: number[]) => void;    // Takes threejs mesh uuid.
-}>(null!);
 
 
 export const App = () => {
 
-  const [sceneItems, setSceneItems] = useState<string[]>([]);
-  const [activeMesh, setActiveMesh] = useState<string>('');
-  const [dims, setDims] = useState<number[]>([4,4]);
-  const [positions, setPos] = useState<{[mesh_id: string] : number[]}>({});
+  const [active, setActive] = useState<string>('');
+  const [dimensions, setDimensions] = useState<number[]>([4,4]);
+  const [objects, setTransforom] = useState<SceneObjectsTransforms>({});
 
-  const setDims_cb = useCallback((dim:number[]) => {setDims(dim)}, []);
+  const setDimensions_cb = useCallback((dim:number[]) => {setDimensions(dim); return true;}, []);
 
-  const updatePosition_cb = (mesh_id: string, newPos : number[]) => {
-    const t = positions;
-    t[mesh_id] = newPos;
-    setPos({...t})
-    console.log('Adding mesh position: ', positions)
+
+  const updateObject_cb = (mesh_id: string, position?: number[], rotation?: number, force = true) => {
+    if(!objects[mesh_id] && !force)
+      return false;
+
+      objects[mesh_id] = {
+        position: (position? position : (objects[mesh_id]?.position || [0,0]) ),
+        rotation: (rotation? rotation : (objects[mesh_id]?.rotation || 0) ) 
+      }
+      setTransforom(objects);
+      return true;
   };
-  const removePosition_cb = (mesh_id: string) => {
-      const n = positions;
-      delete n[mesh_id];
-      console.log('Removed mesh_id ', mesh_id, ' from positions: ', n);
-      setPos(n);
+
+
+  const removeObject_cb = (mesh_id: string) => {
+      delete objects[mesh_id];
+      setActive('');  // Its always the selected active object gets deleted
+      setTransforom(objects);
+      return true;
   }; 
 
   // Will clear everything!
-  const clear_cb = useCallback(() => {setSceneItems([])}, []);
-
+  const clearObjects_cb = useCallback(() => {setTransforom({}); return true;}, []);
 
 
   // Change objectpath (adds object)
-  const setActiveMesh_cb = useCallback((uuid: string) => {setActiveMesh(uuid)}, []);
-  const addObject = useCallback((object3d : string) => {
-    setSceneItems((prev) => [...prev, object3d] );
-  }, []);
+  const setActiveObject_cb = useCallback((uuid: string) => {setActive(uuid); return true;}, []);
 
-  const deleteObject = useCallback((object3d : string) => {
-    setActiveMesh('');
-    setSceneItems((prev) => prev.filter((v) => v != object3d) );
-  }, []);
+
 
   // Value of the context
   const contextValue = useMemo(() => ({
-    sceneItems,
-    addObject,
-    deleteObject,
-    clear_cb
-  }), [sceneItems, addObject, deleteObject, clear_cb]);
-
-  const ActivateMesh_ctxt = useMemo(() => ({
-    activeMesh,
-    setActiveMesh_cb
-  }), [activeMesh, setActiveMesh_cb]);
-
-  const RoomContext_ctxt = useMemo(()=>({ 
-    dims,
-    setDims_cb
-  }), [dims, setDims_cb])
-
-  const positionCtxtValue = useMemo(() => ({
-    positions,
-    removePosition_cb,
-    updatePosition_cb
-  }), [positions, removePosition_cb, updatePosition_cb, clear_cb]);
+    active, 
+    dimensions,
+    objects,
+    updateObject_cb,
+    removeObject_cb,
+    clearObjects_cb,
+    setActiveObject_cb,
+    setDimensions_cb,
+  }), []);
 
 
 
   return (
     <div className='app' >
-      {/* Navigation Menu */}
-
-      {/* 3D Area */}
-      <AddedObjectContext.Provider value={contextValue}>
-        <ActiveMeshContext.Provider value={ActivateMesh_ctxt}>
-          <RoomContext.Provider value={RoomContext_ctxt}>
-           <ObjectsPositionsContext.Provider value={positionCtxtValue}>
-            <Area3D />
-           </ObjectsPositionsContext.Provider>
-          </RoomContext.Provider>
-        </ActiveMeshContext.Provider>
-        {/* Items Area */}
-        <AreaItems />
-      </AddedObjectContext.Provider>
+      <SceneContext.Provider value={contextValue}>
+          <Area3D />
+          <AreaItems />
+      </SceneContext.Provider>
     </div>
   )
 }
