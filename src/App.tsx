@@ -95,7 +95,7 @@ export const App = () => {
 
 
   return (
-    <div className='app'>
+    <div className='app' >
       {/* Navigation Menu */}
 
       {/* 3D Area */}

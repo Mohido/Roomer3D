@@ -57,12 +57,14 @@ export const GlbMesh = (props: {file_id: string}) => {
     }
 
 
-    const onMouseDown=  (event: ThreeEvent<MouseEvent>) => {
+    const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
         const obj = event.object;
-        if(obj instanceof THREE.Mesh){
+        if(event.button == 0 && obj instanceof THREE.Mesh){
+            setActiveMesh_cb(props.file_id);
             obj.material = hoverMat;
+        }else if(event.button == 2) {
+            obj.rotation.y += Math.PI/4;
         }
-        setActiveMesh_cb(props.file_id);
     }
 
     const url = props.file_id.substring(0, props.file_id.lastIndexOf('-'));

@@ -38,7 +38,7 @@ export const Room = () => {
   }, []);
 
   const onMouseDown = (ev: ThreeEvent<MouseEvent>)=>{
-    if(ev.object.name != "FLOOR"){
+    if(ev.object.name != "FLOOR" && ev.button == 0){
       selectedObject.current = ev.object as THREE.Mesh;
     }
   }
