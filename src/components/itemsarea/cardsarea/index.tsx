@@ -1,27 +1,23 @@
 import { memo, useContext } from "react";
 import "./index.css";
 import {  FaRegArrowAltCircleDown, FaRegStar} from 'react-icons/fa';
-import { AddedObjectContext } from "../../../App";
+import { SceneContext } from "../../../App";
 
 
 interface ItemData {id: string, thumbnail: string, description:string, fileurl: string};
 
 export const Item = memo((props: ItemData) => {
   const item = props;
-  const {addObject} = useContext(AddedObjectContext);
+  const {updateObject_cb} = useContext(SceneContext);
 
-  return <div className="card-item" onClick={()=> addObject(item.fileurl + '-' + Math.random())}>
+  return <div className="card-item" onClick={()=> updateObject_cb(item.fileurl + '-' + Math.random())}>
   {/* Item Data */}
   <FaRegStar style={{alignSelf:"start",maxWidth: "16px", maxHeight: "16px", margin:"12px"}} />
   <div>
     <h4>{item.id}</h4>
     <p>{item.description}</p>
   </div>
-
-  {/* Right Image */}
-  {/* <div className="card-item-thumbnail"> */}
-    <img className="card-item-thumbnail" width={64} height={64} src={item.thumbnail} alt={item.id} />
-  {/* </div> */}
+  <img className="card-item-thumbnail" width={64} height={64} src={item.thumbnail} alt={item.id} />
 </div>
 })
 

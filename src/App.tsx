@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo , useState } from 'react';
+import { createContext, useCallback, useEffect, useMemo , useState } from 'react';
 import './App.css'
 import Area3D from './components/3darea';
 import { AreaItems } from './components/itemsarea';
@@ -24,8 +24,6 @@ export const SceneContext = createContext<{
 
 
 
-
-
 export const App = () => {
 
   const [active, setActive] = useState<string>('');
@@ -34,26 +32,29 @@ export const App = () => {
 
   const setDimensions_cb = useCallback((dim:number[]) => {setDimensions(dim); return true;}, []);
 
-
-  const updateObject_cb = (mesh_id: string, position?: number[], rotation?: number, force = true) => {
+  const updateObject_cb = useCallback((mesh_id: string, position?: number[], rotation?: number, force = true) => {
     if(!objects[mesh_id] && !force)
       return false;
-
-      objects[mesh_id] = {
+    
+    setTransforom( (prevState) => ({
+      ...prevState, 
+      [mesh_id] : {
         position: (position? position : (objects[mesh_id]?.position || [0,0]) ),
         rotation: (rotation? rotation : (objects[mesh_id]?.rotation || 0) ) 
       }
-      setTransforom(objects);
-      return true;
-  };
+    }));
+    return true;
+  }, []);
 
 
-  const removeObject_cb = (mesh_id: string) => {
-      delete objects[mesh_id];
+  const removeObject_cb = useCallback((mesh_id: string) => {
       setActive('');  // Its always the selected active object gets deleted
-      setTransforom(objects);
+      setTransforom(prevState => {
+        delete prevState[mesh_id];
+        return prevState;
+      });
       return true;
-  }; 
+  }, []); 
 
   // Will clear everything!
   const clearObjects_cb = useCallback(() => {setTransforom({}); return true;}, []);
@@ -74,7 +75,7 @@ export const App = () => {
     clearObjects_cb,
     setActiveObject_cb,
     setDimensions_cb,
-  }), []);
+  }), [active, dimensions, objects, updateObject_cb, removeObject_cb, clearObjects_cb, setActiveObject_cb, setDimensions_cb]);
 
 
 
