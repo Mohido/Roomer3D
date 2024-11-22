@@ -33,17 +33,22 @@ export const App = () => {
   const setDimensions_cb = useCallback((dim:number[]) => {setDimensions(dim); return true;}, []);
 
   const updateObject_cb = useCallback((mesh_id: string, position?: number[], rotation?: number, force = true) => {
-    if(!objects[mesh_id] && !force)
-      return false;
-    
-    setTransforom( (prevState) => ({
-      ...prevState, 
-      [mesh_id] : {
-        position: (position? position : (objects[mesh_id]?.position || [0,0]) ),
-        rotation: (rotation? rotation : (objects[mesh_id]?.rotation || 0) ) 
+
+    let updated = false;
+    setTransforom( (prevState) => {
+      if(!prevState[mesh_id] && !force)
+        return prevState;
+      
+      updated = true;
+      return {...prevState, 
+        [mesh_id] : {
+          position: (position? position : (prevState[mesh_id]?.position || [0,0]) ),
+          rotation: (rotation? rotation : (prevState[mesh_id]?.rotation || 0) ) 
+        }
       }
-    }));
-    return true;
+    });
+    
+    return updated;
   }, []);
 
 

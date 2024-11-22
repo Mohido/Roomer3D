@@ -22,7 +22,6 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
 
     useEffect(() => {
         const g = (groupRef.current as THREE.Group);
-
         // Update group position
         if(objects[props.file_id]){
             g.traverse((child) => {
@@ -71,7 +70,7 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
             obj.material = hoverMat;
         }else if(event.button == 2) {
             obj.rotation.y += Math.PI/4;
-            updateObject_cb(props.file_id, undefined ,obj.rotation.y);
+            updateObject_cb(props.file_id, undefined ,obj.rotation.y, false);
         }
     }
 

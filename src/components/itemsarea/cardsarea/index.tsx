@@ -6,7 +6,7 @@ import { SceneContext } from "../../../App";
 
 interface ItemData {id: string, thumbnail: string, description:string, fileurl: string};
 
-export const Item = memo((props: ItemData) => {
+export const Item = (props: ItemData) => {
   const item = props;
   const {updateObject_cb} = useContext(SceneContext);
 
@@ -19,7 +19,7 @@ export const Item = memo((props: ItemData) => {
   </div>
   <img className="card-item-thumbnail" width={64} height={64} src={item.thumbnail} alt={item.id} />
 </div>
-})
+}
 
 
 export interface CardProp {
@@ -29,7 +29,7 @@ export interface CardProp {
 };
 
 
-export const Card = memo((props : CardProp) => {
+export const Card = (props : CardProp) => {
   return <div className="card">
 
     {/* Header */}
@@ -57,5 +57,5 @@ export const Card = memo((props : CardProp) => {
 
     <hr />
   </div>;
-})
+}
 
