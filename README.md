@@ -2,8 +2,6 @@
 * 12 days = 24 hours
 
 # Features
-* T [02 h] Touch Screen Movement and Rotation Implementation
-* [01 h] HELP - How to Use Application
 * [02 h] SSG Building & Hosting
 
 ### Art

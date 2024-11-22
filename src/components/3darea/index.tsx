@@ -5,6 +5,7 @@ import { Room } from './room';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei'
 import { DeleteButton } from './buttons';
 import { SettingsButton } from '../settings';
+import { HelpButton } from '../help';
 
 
 
@@ -49,6 +50,7 @@ const Area3D = memo(() => {
 
         <DeleteButton />
         <SettingsButton />
+        <HelpButton />
     </div>
   )
 })
