@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useMemo , useState } from 'react';
+import { createContext, useCallback, useMemo , useState } from 'react';
 import './App.css'
 import Area3D from './components/3darea';
 import { AreaItems } from './components/itemsarea';

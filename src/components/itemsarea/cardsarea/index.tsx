@@ -1,4 +1,4 @@
-import { memo, useContext } from "react";
+import { useContext } from "react";
 import "./index.css";
 import {  FaRegArrowAltCircleDown, FaRegStar} from 'react-icons/fa';
 import { SceneContext } from "../../../App";

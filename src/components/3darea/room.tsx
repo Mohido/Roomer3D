@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef} from 'react'
+import { useContext, useEffect, useRef} from 'react'
 import * as THREE from 'three';
 import { SceneContext } from '../../App';
 import { ThreeEvent } from '@react-three/fiber';
@@ -19,9 +19,6 @@ export const Items3D = () => {
 }
 
 
-
-
-// dims must be 2 numbers defining the room size by meters
 export const Room = () => {
   // This reference will give us direct access to the mesh
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -40,6 +37,7 @@ export const Room = () => {
       selectedObject.current = ev.object as THREE.Mesh;
     }
   }
+
   const onMouseMove = (ev: ThreeEvent<MouseEvent>)=>{
     if(!selectedObject.current)
       return;
@@ -47,6 +45,7 @@ export const Room = () => {
     selectedObject.current.position.x = inter.point.x;
     selectedObject.current.position.z = inter.point.z;
   }
+
   const onMouseUp = ()=>{
     if(!selectedObject.current)
       return;
@@ -83,11 +82,11 @@ export const Room = () => {
 
       <group
         name='Floor&Objects'
-      onPointerOut={() => selectedObject.current=null}
       onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
         <mesh
           receiveShadow
           name='FLOOR'
+          onPointerOut={() => selectedObject.current=null}
           scale={[dimensions[0], 1, dimensions[1]]}
           ref={meshRef}>
           <boxGeometry args={[1, 0.05, 1]} />
