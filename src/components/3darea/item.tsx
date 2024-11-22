@@ -2,31 +2,35 @@ import { Gltf, useGLTF } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
 import { useContext, useEffect, useRef } from 'react'
 import * as THREE from 'three';
-import { ActiveMeshContext, ObjectsPositionsContext } from '../../App';
+import { SceneContext } from '../../App';
 
 const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')});
 
-export const GlbMesh = (props: {file_id: string}) => {
-    const {activeMesh, setActiveMesh_cb} = useContext(ActiveMeshContext);
-    const {rotations, updateRotation_cb, positions, updatePosition_cb} = useContext(ObjectsPositionsContext);
+
+useGLTF.preload('/plant_1/plant.glb');
+useGLTF.preload('/chair_1/chair.glb');
+useGLTF.preload('/chair_2/chair.glb');
+useGLTF.preload('/bed_1/bed.glb');
+useGLTF.preload('/bed_2/bed.glb');
+useGLTF.preload('/table/table.glb');
+
+
+export const GlbMesh = (props: {file_id: string, active : boolean}) => {
+    const {setActiveObject_cb, objects, updateObject_cb} = useContext(SceneContext);
     const origMat = useRef<THREE.Material | null>(null);
     const groupRef = useRef(null!);
 
     useEffect(() => {
         const g = (groupRef.current as THREE.Group);
-
         // Update group position
-        if(positions[props.file_id]){
+        if(objects[props.file_id]){
             g.traverse((child) => {
                 if(child instanceof THREE.Mesh){
-                    child.position.x = positions[props.file_id][0];
-                    child.position.z = positions[props.file_id][1];
-                    child.rotation.y = rotations[props.file_id];
+                    child.position.x = objects[props.file_id].position[0];
+                    child.position.z = objects[props.file_id].position[1];
+                    child.rotation.y = objects[props.file_id].rotation;
                 }
             })
-        }else{
-            updatePosition_cb(props.file_id, [0,0]);
-            updateRotation_cb(props.file_id, 0);
         }
 
         if(origMat.current === null){
@@ -35,14 +39,14 @@ export const GlbMesh = (props: {file_id: string}) => {
                     origMat.current = child.material;
                 }
             })
-        }else if(activeMesh != props.file_id){
+        }else if(!props.active){
             g.children.forEach((child) => {
                 if(child instanceof THREE.Mesh){
                     child.material = origMat.current;
                 }
             })
         }
-    } , [activeMesh]);
+    } , [props.active]);
 
     const onEnter = (event: ThreeEvent<PointerEvent>) => {
         const obj = event.object;
@@ -53,7 +57,7 @@ export const GlbMesh = (props: {file_id: string}) => {
 
     const onLeave = (event: ThreeEvent<PointerEvent>) => {
         const obj = event.object;
-        if(obj instanceof THREE.Mesh && props.file_id !== activeMesh){
+        if(obj instanceof THREE.Mesh && !props.active){
             obj.material = origMat.current;
         }
     }
@@ -62,11 +66,11 @@ export const GlbMesh = (props: {file_id: string}) => {
     const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
         const obj = event.object;
         if(event.button == 0 && obj instanceof THREE.Mesh){
-            setActiveMesh_cb(props.file_id);
+            setActiveObject_cb(props.file_id);
             obj.material = hoverMat;
         }else if(event.button == 2) {
             obj.rotation.y += Math.PI/4;
-            updateRotation_cb(props.file_id,obj.rotation.y);
+            updateObject_cb(props.file_id, undefined ,obj.rotation.y, false);
         }
     }
 
@@ -84,4 +88,3 @@ export const GlbMesh = (props: {file_id: string}) => {
 
 
 
-useGLTF.preload('/1x1box.glb');
