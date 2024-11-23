@@ -30,32 +30,37 @@ export interface CardProp {
 
 
 export const Card = (props : CardProp) => {
+  const search = props.filter.toLowerCase();
+  const visibles = props.data.filter((item) => 
+    item.id.toLowerCase().includes(search) || item.description.toLowerCase().includes(search)
+  )
+
+  if(visibles.length === 0)
+    return <></>
+  
   return <div className="card">
-
-    {/* Header */}
-    <div className="card-header">
-      <div>
-        <h2>{props.category}</h2>
-        <h1>{props.type}</h1>
+      {/* Header */}
+      <div className="card-header">
+        <div>
+          <h2>{props.category}</h2>
+          <h1>{props.type}</h1>
+        </div>
+        <FaRegArrowAltCircleDown style={{color: "var(--gray2)" ,maxWidth: "16px", margin: "10px"}}/>
       </div>
-      <FaRegArrowAltCircleDown style={{color: "var(--gray2)" ,maxWidth: "16px", margin: "10px"}}/>
-    </div>
 
-    <hr />
+      <hr />
 
-    {/* Items List */}
-    <div className="card-body">
+      {/* Items List */}
+    
+      <div className="card-body">
       {
-        props.data.map((item) => {
-          if(!(item.id.includes(props.filter) || item.description.includes(props.filter)))
-            return <div key={item.id}></div>
-          else
-            return <Item {...item} key={item.id} />
-        })
+        visibles.map((item) => <Item {...item} key={item.id} />)
       }
-    </div>
+      </div>
+      
 
-    <hr />
-  </div>;
+      <hr />
+    </div>
+  
 }
 

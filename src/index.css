@@ -31,6 +31,8 @@
     outline: none;
     background-color: white;
     padding: 10px 100px;
+    max-height: 90vh;
+    overflow: auto;
 }
 
 .modal-title{
