@@ -1,4 +1,4 @@
-import { Gltf, useGLTF } from '@react-three/drei';
+import { Gltf } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
 import { useContext, useEffect, useRef } from 'react'
 import * as THREE from 'three';
@@ -6,65 +6,50 @@ import { SceneContext } from '../../App';
 
 const hoverMat = new THREE.MeshLambertMaterial({color: new THREE.Color('green')});
 
-
-useGLTF.preload('/plant_1/plant.glb');
-useGLTF.preload('/chair_1/chair.glb');
-useGLTF.preload('/chair_2/chair.glb');
-useGLTF.preload('/bed_1/bed.glb');
-useGLTF.preload('/bed_2/bed.glb');
-useGLTF.preload('/table/table.glb');
-
-
 export const GlbMesh = (props: {file_id: string, active : boolean}) => {
     const {setActiveObject_cb, objects, updateObject_cb} = useContext(SceneContext);
-    const origMat = useRef<THREE.Material | null>(null);
-    const groupRef = useRef(null!);
+    const origMats = useRef<{ [uuid : string] : THREE.Material} >({});
+    const groupRef = useRef<THREE.Group>(null!);
+
+    const storeMats = () => {
+        const g = groupRef.current;
+        g && g.children.forEach((child) => {
+            if(child instanceof THREE.Mesh){
+                origMats.current[child.uuid] = child.material;
+            }
+        })
+    }
+
+    const loadMats = (original: boolean = true) => {
+        const g = groupRef.current;
+        g && g.children.forEach((child) => {
+            if(child instanceof THREE.Mesh){
+                child.material = original ? origMats.current[child.uuid] : hoverMat;
+            }
+        })
+    }
 
     useEffect(() => {
-        const g = (groupRef.current as THREE.Group);
-        // Update group position
+        const g = groupRef.current;
         if(objects[props.file_id]){
             g.position.x = objects[props.file_id].position[0];
             g.position.z = objects[props.file_id].position[1];
             g.rotation.y = objects[props.file_id].rotation;
         }
 
-        if(origMat.current === null){
-            g.children.forEach((child) => {
-                if(child instanceof THREE.Mesh){
-                    origMat.current = child.material;
-                }
-            })
+        if(Object.keys(origMats.current).length === 0){
+            storeMats();
         }else if(!props.active){
-            g.children.forEach((child) => {
-                if(child instanceof THREE.Mesh){
-                    child.material = origMat.current;
-                }
-            })
+            loadMats(true);
         }
     } , [props.active]);
 
-    const onEnter = (event: ThreeEvent<PointerEvent>) => {
-        const obj = event.object;
-        if(obj instanceof THREE.Mesh){
-            obj.material = hoverMat;
-        }
-    }
-
-    const onLeave = (event: ThreeEvent<PointerEvent>) => {
-        const obj = event.object;
-        if(obj instanceof THREE.Mesh && !props.active){
-            obj.material = origMat.current;
-        }
-    }
-
 
     const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
-        const obj = event.object;
-        const g = (groupRef.current as THREE.Group);
-        if(event.button == 0 && obj instanceof THREE.Mesh){
+        const g = groupRef.current;
+        if(event.button == 0){
             setActiveObject_cb(props.file_id);
-            obj.material = hoverMat;
+            loadMats(false);
         }else if(event.button == 2) {
             g.rotation.y += Math.PI/4;
             updateObject_cb(props.file_id, undefined, g.rotation.y, false);
@@ -76,8 +61,8 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
     <Gltf castShadow
     receiveShadow
      ref={groupRef} src={url} 
-    onPointerEnter={onEnter} 
-    onPointerOut={onLeave} 
+    onPointerEnter={() => loadMats(false)} 
+    onPointerOut={() => !props.active && loadMats(true)} 
     onPointerDown={onMouseDown} 
     />
   )

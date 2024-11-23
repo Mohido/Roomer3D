@@ -1,5 +1,5 @@
 # Time Left:
-* 12 days = 24 hours
+* 11 days = 22 hours
 
 # Features
 * [02 h] SSG Building & Hosting
@@ -12,8 +12,6 @@
 ### Optimization
 * [....] Search the application for bottlenecks
 * [....] Implement Testing
-* [4 h] Fix events to work on groups instead of individual meshes (The current implementation only supports moving single mesh)
-    * TOTAL = UNKOWN
 
 
 ### Containerization
