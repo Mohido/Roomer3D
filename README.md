@@ -20,3 +20,4 @@
     * TOTAL = 30m
 
 ### Bugs
+* [10 m] Help Menu gets hidden in some screen widths.

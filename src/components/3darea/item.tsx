@@ -52,7 +52,6 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
 
 
     const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
-        const g = groupRef.current;
         if(event.button == 0){
             setActiveObject_cb(props.file_id);
             loadMats(false);
