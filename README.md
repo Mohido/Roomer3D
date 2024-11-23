@@ -5,7 +5,8 @@
 * [02 h] SSG Building & Hosting
 
 ### Art
-* [02 h] Add Window to Room
+* [10 h] Improve Art Style! Add more detailed meshes.
+* [02 h] Add Window to Room --- Under Progress...
     * TOTAL = 15h
 
 
