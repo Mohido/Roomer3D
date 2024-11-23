@@ -29,6 +29,12 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
         })
     }
 
+    const rotate = () => {
+        const g = groupRef.current;
+        g && (g.rotation.y += Math.PI/4);
+        updateObject_cb(props.file_id, undefined, g.rotation.y, false);
+    }
+
     useEffect(() => {
         const g = groupRef.current;
         if(objects[props.file_id]){
@@ -42,7 +48,7 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
         }else if(!props.active){
             loadMats(true);
         }
-    } , [props.active]);
+    } , [props.active, objects[props.file_id].rotation]);
 
 
     const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
@@ -50,9 +56,8 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
         if(event.button == 0){
             setActiveObject_cb(props.file_id);
             loadMats(false);
-        }else if(event.button == 2) {
-            g.rotation.y += Math.PI/4;
-            updateObject_cb(props.file_id, undefined, g.rotation.y, false);
+        }else if(event.button == 2 || event.delta < 1) {
+            rotate();
         }
     }
 

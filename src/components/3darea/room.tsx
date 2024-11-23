@@ -54,7 +54,7 @@ export const Room = () => {
   }
 
   return (
-    <group position={[0,-1,0]} onPointerDown={()=> {
+    <group position={[0,-1.5,0]} onPointerDown={()=> {
         if(!selectedObject.current)
           setActiveObject_cb(''); // Produces a behavior of un-activating object when rotating it.
       }}>

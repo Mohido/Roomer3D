@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import "./index.css";
 import { Room } from './room';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei'
-import { DeleteButton } from './buttons';
+import { DeleteButton, RotateButton } from './buttons';
 import { SettingsButton } from '../settings';
 import { HelpButton } from '../help';
 
@@ -51,6 +51,7 @@ const Area3D = memo(() => {
         <DeleteButton />
         <SettingsButton />
         <HelpButton />
+        <RotateButton />
     </div>
   )
 })
