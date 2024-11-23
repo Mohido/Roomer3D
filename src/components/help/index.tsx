@@ -27,7 +27,7 @@ export const HelpButton = ()=>{
                 </div>
 
                 <div className='subtitle-content'>
-                    <div className="help-box"><h4>Rotate Object</h4><p>Right Mouse Click</p><p>Left Mouse Double Click</p></div>
+                    <div className="help-box"><h4>Rotate Object</h4>Right Mouse Click</div>
                     <div className="help-box"><h4>Activate Object</h4>Left Mouse Click</div>
                     <div className="help-box"><h4>Move Object</h4>Left Mouse Drag</div>
                     <div className="help-box"><h4>Zooming</h4>Middle-Mouse Roll</div>
