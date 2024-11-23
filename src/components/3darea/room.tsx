@@ -24,7 +24,7 @@ export const Room = () => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const r_WallRef = useRef<THREE.Mesh>(null!);
   const l_WallRef = useRef<THREE.Mesh>(null!);
-  const selectedObject = useRef<THREE.Mesh | null>(null);
+  const selectedObject = useRef<THREE.Group | null>(null);
   const {active, setActiveObject_cb, updateObject_cb, dimensions} = useContext(SceneContext);
 
   useEffect(() => {
@@ -34,14 +34,14 @@ export const Room = () => {
 
   const onMouseDown = (ev: ThreeEvent<MouseEvent>)=>{
     if(ev.object.name != "FLOOR" && ev.button == 0){
-      selectedObject.current = ev.object as THREE.Mesh;
+      selectedObject.current = ev.intersections[0].eventObject as THREE.Group;
     }
   }
 
   const onMouseMove = (ev: ThreeEvent<MouseEvent>)=>{
     if(!selectedObject.current)
       return;
-    const inter = ev.intersections[ev.intersections.length - 1];
+    const inter = ev.intersections[ev.intersections.length - 1]; // Last intersection point (Floor)
     selectedObject.current.position.x = inter.point.x;
     selectedObject.current.position.z = inter.point.z;
   }

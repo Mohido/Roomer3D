@@ -24,13 +24,9 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
         const g = (groupRef.current as THREE.Group);
         // Update group position
         if(objects[props.file_id]){
-            g.traverse((child) => {
-                if(child instanceof THREE.Mesh){
-                    child.position.x = objects[props.file_id].position[0];
-                    child.position.z = objects[props.file_id].position[1];
-                    child.rotation.y = objects[props.file_id].rotation;
-                }
-            })
+            g.position.x = objects[props.file_id].position[0];
+            g.position.z = objects[props.file_id].position[1];
+            g.rotation.y = objects[props.file_id].rotation;
         }
 
         if(origMat.current === null){
@@ -65,12 +61,13 @@ export const GlbMesh = (props: {file_id: string, active : boolean}) => {
 
     const onMouseDown =  (event: ThreeEvent<MouseEvent>) => {
         const obj = event.object;
+        const g = (groupRef.current as THREE.Group);
         if(event.button == 0 && obj instanceof THREE.Mesh){
             setActiveObject_cb(props.file_id);
             obj.material = hoverMat;
         }else if(event.button == 2) {
-            obj.rotation.y += Math.PI/4;
-            updateObject_cb(props.file_id, undefined ,obj.rotation.y, false);
+            g.rotation.y += Math.PI/4;
+            updateObject_cb(props.file_id, undefined, g.rotation.y, false);
         }
     }
 
