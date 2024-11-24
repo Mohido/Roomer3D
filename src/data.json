@@ -1,0 +1,62 @@
+{
+    "items" : {
+        "Furniture" : {
+            "Tables" : [
+                {   
+                    "id" : "Table.001",
+                    "description" : "Wood, Heavy",
+                    "thumbnail" : "table/thumbnail_compressed.png",
+                    "fileurl" : "table/table.glb"
+                }
+            ], 
+            "Chairs" : [
+                {
+                    "id" : "Chair.001",
+                    "description" : "Light, Chill",
+                    "thumbnail" : "chair_1/thumbnail_compressed.png",
+                    "fileurl" : "chair_1/chair.glb"
+                },
+                {
+                    "id" : "Chair.002",
+                    "description" : "Gaming, Cool",
+                    "thumbnail" : "chair_2/thumbnail_compressed.png",
+                    "fileurl" : "chair_2/chair.glb"
+                }
+            ],
+            "Beds" : [
+                {
+                    "id" : "Bed.001",
+                    "description" : "Single",
+                    "thumbnail" : "bed_1/thumbnail_compressed.png",
+                    "fileurl" : "bed_1/bed.glb"
+                },
+                {
+                    "id" : "Bed.002",
+                    "description" : "Double",
+                    "thumbnail" : "bed_2/thumbnail_compressed.png",
+                    "fileurl" : "bed_2/bed.glb"
+                }
+            ]
+        },
+        "Decoration" : {
+            "Plants" : [
+                {
+                    "id" : "Plant.001",
+                    "description" : "Artificial",
+                    "thumbnail" : "plant_1/thumbnail_compressed.png",
+                    "fileurl" : "plant_1/plant.glb"
+                }
+            ]
+        },
+        "Misc" : {
+            "Windows" : [
+                {
+                    "id" : "Window",
+                    "description" : "White WIndow",
+                    "thumbnail" : "window/thumbnail_compressed.png",
+                    "fileurl" : "window/window.glb"
+                }
+            ]
+        }
+    }
+}

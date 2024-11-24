@@ -1,0 +1,16 @@
+.help-button{
+    right: 10px;
+    left:auto;
+    top: 10px;
+    color: var(--gray3);
+
+}
+
+
+.help-box{
+    margin: 10px;
+    border-bottom: 1px solid var(--gray2);
+    text-align: center;
+    height: fit-content;
+    align-self: center;
+}

@@ -1,0 +1,10 @@
+.dim-container{
+    width: 240px;
+    margin: 10px auto;
+}
+
+.dim-label{
+    display: flex;
+    flex-grow: 1;
+    justify-content:space-between;
+}

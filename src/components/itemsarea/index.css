@@ -1,0 +1,5 @@
+.itemsarea{
+    background-color: var(--gray1);
+    overflow-y: scroll;
+}
+

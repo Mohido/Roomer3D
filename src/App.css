@@ -1,0 +1,15 @@
+.app{
+    display: flex;
+    height: 100vh;
+}
+
+.app * {
+    flex-grow: 1;
+}
+
+
+@media (max-width: 1000px ) {
+    .app{
+        flex-wrap: wrap;
+    }
+}

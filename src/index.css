@@ -1,0 +1,149 @@
+:root{
+    --gray1:  #F6F6F6;
+    --gray2: rgb(190, 190, 190);
+    --gray3: rgb(139, 139, 139);
+    --submit: rgb(138, 255, 138);
+    --submit-dark: rgb(110, 203, 110);
+    --cancel: rgb(255, 138, 138);
+    --cancel-dark: rgb(203, 109, 109);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+.modal-menu { 
+    top: 20%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    width: 70%;
+    margin-right: -50%;
+    transform: translate(20%, 20%);
+    border: var(--gray2) 1px solid;
+    border-radius: 5px;
+    /* box-shadow: 1px 1px 2px var(--gray2); */
+    outline: none;
+    background-color: white;
+    padding: 10px 100px;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+.modal-title{
+    margin: auto;
+    width: fit-content;
+}
+
+.subtitle-header{
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.modal-subtitle{
+    color: var(--gray3);
+    flex-grow: 1;
+    /* flex-basis: 100%; */
+    min-width: fit-content;
+}
+
+.subtitle-content, .footer{
+    display: flex;
+    margin: 20px auto;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.footer {
+    justify-content: space-around;
+}
+
+.line{
+    flex-basis: 100%;
+    height: 1px;
+    margin-left: 10px;
+    margin-top: 5px;
+    background-color: var(--gray3);
+}
+
+.button-icon{
+    font-size: large;
+    width: 32px;
+    height: 32px;
+}
+
+.load-button{
+    display: flex;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    justify-content: space-evenly;
+    background-color: var(--gray1);
+    outline: none;
+    border: 1px solid var(--gray2);
+    cursor: pointer;
+    transition: all .1s ease-in;
+    margin: 10px auto;
+}
+
+.load-button:hover{
+    background-color: var(--gray2);
+}
+
+.load-button span{
+    font-size: larger;
+    font-weight:400 ;
+}
+
+.submit { 
+    background-color: var(--submit);
+}
+.submit:hover{
+    background-color: var(--submit-dark);
+}
+
+
+.cancel { 
+    background-color: var(--cancel);
+}
+.cancel:hover{
+    background-color: var(--cancel-dark);
+}
+
+
+@media (max-width: 700px) {
+    .modal-menu{
+        transform: translate(20%, 10%);
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .modal-menu{
+        transform: translate(20%, 5%);
+        padding: 10px 20px;
+    }
+}
+
+
+
+@keyframes wiggle {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    33% { 
+        transform: rotateZ(45deg);
+    }
+    66% { 
+        transform: rotateZ(-45deg);
+    }
+    100% { 
+        transform: rotateZ(0deg);
+    }
+}
