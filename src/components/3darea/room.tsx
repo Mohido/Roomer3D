@@ -69,7 +69,6 @@ export const Room = () => {
         castShadow
         receiveShadow
         name='RIGHT_WALL'
-        // onPointerDown={(ev) =>  ev.stopPropagation()}
         scale={[dimensions[0], 1, 3]}
         position={[0, 1.475, - dimensions[1] / 2]}
         ref={r_WallRef}>
@@ -80,7 +79,6 @@ export const Room = () => {
       <mesh
       receiveShadow
         castShadow
-        // onPointerDown={(ev) =>  ev.stopPropagation()}
         name='LEFT_WALL'
         scale={[3, 1, dimensions[1]]}
         position={[-dimensions[0] / 2, 1.475, 0]}
@@ -89,14 +87,10 @@ export const Room = () => {
         <meshStandardMaterial color='gray' />
       </mesh>
 
-      <group
-        name='Floor&Objects'
-        // onPointerOut={() => !active.toLowerCase().includes('window') && (selectedObject.current=null)}
-      >
+      <group name='Floor&Objects'>
         <mesh
           receiveShadow
           name='FLOOR'
-          
           scale={[dimensions[0], 1, dimensions[1]]}
           ref={meshRef}>
           <boxGeometry args={[1, 0.05, 1]} />
