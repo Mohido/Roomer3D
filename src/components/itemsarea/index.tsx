@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { Searchbar } from "../searchbar"
 import { Card } from "./cardsarea";
 import "./index.css";
+import data from '../../data.json';
 
 
 export interface CardData{
@@ -10,26 +11,9 @@ export interface CardData{
   }
 }
 
-//  onSelect a callback with item data ()
-// TODO: Switch searching to context.
 export const AreaItems = () => {
     const [search, setSearch] = useState('');
-    const [items, setItems] = useState({} as CardData);
-
-    useEffect(() => {
-      const fetchItems = async () => {
-        try{
-          const res = await fetch("http://localhost:3000/items");
-          const data = await res.json(); 
-          setItems(data);
-          return data;
-        }catch(error){
-          console.error(error);
-        }
-        return;
-      }
-      fetchItems();
-    } , []);
+    const items = useRef<CardData> (data.items);
 
 
   return (
@@ -39,9 +23,9 @@ export const AreaItems = () => {
         {/* Cards Area */}
         <div className="cardsarea">
           {
-            Object.keys(items).map((category)=>{
-              return Object.keys(items[category]).map((type) => {
-                return <Card type={type} category={category} key={category + '-' + type} filter={search} data={items[category][type]}/>
+            Object.keys(items.current).map((category)=>{
+              return Object.keys(items.current[category]).map((type) => {
+                return <Card type={type} category={category} key={category + '-' + type} filter={search} data={items.current[category][type]}/>
               })
             })
           }

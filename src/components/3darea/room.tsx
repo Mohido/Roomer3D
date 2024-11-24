@@ -33,9 +33,18 @@ export const Room = () => {
   }, []);
 
   const onMouseDown = (ev: ThreeEvent<MouseEvent>)=>{
-    if(ev.object.name != "FLOOR" && ev.button == 0){
-      selectedObject.current = ev.intersections[0].eventObject as THREE.Group;
+    const notin = ["LEFT_WALL", "RIGHT_WALL", "FLOOR"]
+    // Search for first intersection that doesn't belong to the room walls
+    if(ev.button == 0){
+        let i = 0;
+        while(i < ev.intersections.length && notin.includes(ev.intersections[i].object.name))
+          i++;
+        if(i < ev.intersections.length)
+          selectedObject.current = ev.intersections[i].eventObject as THREE.Group;
     }
+
+    if(!selectedObject.current)
+      setActiveObject_cb(''); // Produces a behavior of un-activating object when rotating it.
   }
 
   const onMouseMove = (ev: ThreeEvent<MouseEvent>)=>{
@@ -54,10 +63,8 @@ export const Room = () => {
   }
 
   return (
-    <group position={[0,-1.5,0]} onPointerDown={()=> {
-        if(!selectedObject.current)
-          setActiveObject_cb(''); // Produces a behavior of un-activating object when rotating it.
-      }}>
+    <group position={[0,-1.5,0]} 
+    onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
       <mesh 
         castShadow
         receiveShadow
@@ -80,13 +87,10 @@ export const Room = () => {
         <meshStandardMaterial color='gray' />
       </mesh>
 
-      <group
-        name='Floor&Objects'
-      onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
+      <group name='Floor&Objects'>
         <mesh
           receiveShadow
           name='FLOOR'
-          onPointerOut={() => selectedObject.current=null}
           scale={[dimensions[0], 1, dimensions[1]]}
           ref={meshRef}>
           <boxGeometry args={[1, 0.05, 1]} />
