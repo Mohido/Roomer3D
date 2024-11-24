@@ -117,7 +117,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .modal-menu{
         transform: translate(20%, 10%);
         padding: 10px 20px;

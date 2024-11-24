@@ -47,6 +47,16 @@
                     "fileurl" : "plant_1/plant.glb"
                 }
             ]
+        },
+        "Misc" : {
+            "Windows" : [
+                {
+                    "id" : "Window",
+                    "description" : "White WIndow",
+                    "thumbnail" : "window/thumbnail_compressed.png",
+                    "fileurl" : "window/window.glb"
+                }
+            ]
         }
     }
 }

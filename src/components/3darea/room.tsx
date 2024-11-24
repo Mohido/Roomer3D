@@ -33,9 +33,18 @@ export const Room = () => {
   }, []);
 
   const onMouseDown = (ev: ThreeEvent<MouseEvent>)=>{
-    if(ev.object.name != "FLOOR" && ev.button == 0){
-      selectedObject.current = ev.intersections[0].eventObject as THREE.Group;
+    const notin = ["LEFT_WALL", "RIGHT_WALL", "FLOOR"]
+    // Search for first intersection that doesn't belong to the room walls
+    if(ev.button == 0){
+        let i = 0;
+        while(i < ev.intersections.length && notin.includes(ev.intersections[i].object.name))
+          i++;
+        if(i < ev.intersections.length)
+          selectedObject.current = ev.intersections[i].eventObject as THREE.Group;
     }
+
+    if(!selectedObject.current)
+      setActiveObject_cb(''); // Produces a behavior of un-activating object when rotating it.
   }
 
   const onMouseMove = (ev: ThreeEvent<MouseEvent>)=>{
@@ -54,14 +63,13 @@ export const Room = () => {
   }
 
   return (
-    <group position={[0,-1.5,0]} onPointerDown={()=> {
-        if(!selectedObject.current)
-          setActiveObject_cb(''); // Produces a behavior of un-activating object when rotating it.
-      }}>
+    <group position={[0,-1.5,0]} 
+    onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
       <mesh 
         castShadow
         receiveShadow
         name='RIGHT_WALL'
+        // onPointerDown={(ev) =>  ev.stopPropagation()}
         scale={[dimensions[0], 1, 3]}
         position={[0, 1.475, - dimensions[1] / 2]}
         ref={r_WallRef}>
@@ -72,6 +80,7 @@ export const Room = () => {
       <mesh
       receiveShadow
         castShadow
+        // onPointerDown={(ev) =>  ev.stopPropagation()}
         name='LEFT_WALL'
         scale={[3, 1, dimensions[1]]}
         position={[-dimensions[0] / 2, 1.475, 0]}
@@ -82,11 +91,12 @@ export const Room = () => {
 
       <group
         name='Floor&Objects'
-      onPointerUp={onMouseUp} onPointerMove={onMouseMove} onPointerDown={onMouseDown}>
+        // onPointerOut={() => !active.toLowerCase().includes('window') && (selectedObject.current=null)}
+      >
         <mesh
           receiveShadow
           name='FLOOR'
-          onPointerOut={() => selectedObject.current=null}
+          
           scale={[dimensions[0], 1, dimensions[1]]}
           ref={meshRef}>
           <boxGeometry args={[1, 0.05, 1]} />
